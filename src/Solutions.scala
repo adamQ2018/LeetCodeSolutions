@@ -10,7 +10,7 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val res = shortestToChar("abaa", 'b')
+    val res = moveZeroes(Array(0,1,0,3,12))
 
 //    println(res)
     res.foreach(println)

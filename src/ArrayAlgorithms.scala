@@ -327,5 +327,21 @@ object ArrayAlgorithms {
   }
 
   // -------------------------- *** Problem: Longest Continuous Increasing Subsequence *** ----------------------
+  def moveZeroes(nums: Array[Int]): Array[Int] = {
 
+    var ind = 0
+    var zeroLoc = 0
+    val res = nums
+
+    while (ind < res.length){
+      if (res(ind) != 0){
+        val temp = res(ind) + res(zeroLoc)
+        res(ind) = res(zeroLoc)
+        res(zeroLoc) = temp - res(ind)
+        zeroLoc += 1
+      }
+      ind += 1
+    }
+    res
+  }
 }
