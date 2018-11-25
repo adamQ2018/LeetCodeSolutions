@@ -326,7 +326,7 @@ object ArrayAlgorithms {
     res.length
   }
 
-  // -------------------------- *** Problem: Longest Continuous Increasing Subsequence *** ----------------------
+  // -------------------------- *** Problem: Move Zeros *** ----------------------
   def moveZeroes(nums: Array[Int]): Array[Int] = {
 
     var ind = 0
@@ -344,4 +344,7 @@ object ArrayAlgorithms {
     }
     res
   }
+
+  // -------------------------- *** Problem: Longest Continuous Increasing Subsequence *** ----------------------
+
 }
