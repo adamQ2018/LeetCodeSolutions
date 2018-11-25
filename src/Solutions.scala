@@ -10,7 +10,7 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val res = shortestCompletingWord("tR28607", Array("present"))
+    val res = onlySingleNumber(Array(1, 2, 1, 2, 3, 4, 4))
 //    val res = strToPrimeProd("present")
     println(res)
 //    res.foreach(println)

@@ -892,5 +892,31 @@ object StringAlgorithms {
   }
 
 
+  // -------------------------- *** Problem: Fizz Buzz *** ---------------------
+  def fizzBuzz(n: Int): List[String] = {
+
+    var i = 1
+    var list = collection.mutable.ArrayBuffer[String]()
+
+    while (i <= n) {
+      var s = ""
+      if (i % 3 == 0)
+        s += "Fizz"
+      if (i % 5 == 0)
+        s += "Buzz"
+      if (s == "")
+        s = i.toString
+      list.append(s)
+      i += 1
+    }
+
+    list.toList
+  }
+
+  // -------------------------- *** Problem: Letter Case Permutation *** ---------------------
+  def letterCasePermutation(S: String): List[String] = {
+
+  }
+
 
 }

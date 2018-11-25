@@ -343,7 +343,68 @@ object MathAlgorithm {
   }
 
   // -------------------------- *** Problem: Single Number *** ---------------------
+  def onlySingleNumber(nums: Array[Int]): Int = {
 
+    if (nums.isEmpty){
+      0
+    }
+    else{
+
+      var ind = 1
+      var tracker = nums(0)
+
+      while (ind < nums.length){
+        tracker = nums(ind) ^ tracker
+        ind += 1
+      }
+      tracker
+    }
+  }
+
+  // -------------------------- *** Problem: Good Number *** ---------------------
+  def rotatedDigits(N: Int): Int = {
+    val must = Array( '2', '5', '6', '9' )
+    val avoid = Array( '3', '4', '7' )
+
+    var num = 1
+    var count = 0
+
+    while (num <= N){
+      val thisNumber = num.toString.toCharArray
+      val cantHaveCheck = thisNumber.foldLeft(false)( (tf, x) => tf || avoid.contains(x))
+      val mustHaveCheck = thisNumber.foldLeft(false)( (tf, x) => tf || must.contains(x))
+      if (!cantHaveCheck && mustHaveCheck){
+        count += 1
+      }
+      num += 1
+    }
+
+    count
+  }
+
+  // -------------------------- *** Problem: Count Binary Substrings *** ---------------------
+  def countBinarySubstrings(s: String): Int = {
+
+    var ind = 1
+    var currentLen = 1
+    var prevLen = 0
+    var count = 0
+
+    while (ind < s.length){
+      if ( s(ind) == s(ind -1) ){
+        currentLen += 1 // this means current 1s or 0s does not end
+      }
+      else { // this means current 0s or 1s ends
+        prevLen = currentLen
+        currentLen = 1
+      }
+      if (currentLen <= prevLen){ // if this holds, there is always a match in the previous companion number seq
+        count += 1
+      }
+      ind += 1
+    }
+    count
+  }
 
 
 }
