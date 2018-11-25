@@ -48,7 +48,7 @@ object StringAlgorithms {
 
         thisRepeatStart = map( str(ind) )
         //        println(s"repeat pos: $thisRepeatStart")
-        map = map.filter(mapping => (mapping._2 > thisRepeatStart))
+        map = map.filter(mapping => mapping._2 > thisRepeatStart)
         map = map ++ Map(str(ind) -> ind)
         currentMax = ind - thisRepeatStart
         //        println(s"Recalculating current max: $currentMax")
@@ -218,7 +218,7 @@ object StringAlgorithms {
       if (thisMax > maxLen) {
         maxLen = thisMax
         bestPos = ind
-        res = if (evenMax >= skewMax) str.substring(bestPos - (maxLen - 1)/2, bestPos + (maxLen - 1)/2 +  1) else str.substring(bestPos - (maxLen)/2, bestPos + (maxLen)/2 )
+        res = if (evenMax >= skewMax) str.substring(bestPos - (maxLen - 1)/2, bestPos + (maxLen - 1)/2 +  1) else str.substring(bestPos - maxLen/2, bestPos + maxLen/2 )
       }
       ind += 1
 //      println(s"current best: $bestPos")
@@ -320,7 +320,7 @@ object StringAlgorithms {
       }
 //      println(sign)
       if (numStr.length == 0) {res = 0}
-      else {res = (
+      else {res =
         try{
           if (sign < 0) -1 * numStr.toInt else numStr.toInt
         }
@@ -328,7 +328,7 @@ object StringAlgorithms {
           case e: Exception if sign < 0 => Int.MinValue
           case e: Exception if sign > 0 => Int.MaxValue
       }
-        )
+        
       }
     }
     res
@@ -913,9 +913,69 @@ object StringAlgorithms {
     list.toList
   }
 
-  // -------------------------- *** Problem: Letter Case Permutation *** ---------------------
-  def letterCasePermutation(S: String): List[String] = {
 
+  // -------------------------- *** Problem: Letter Case Permutation *** ---------------------
+  def isEnglishChar (char: Char): Boolean = {
+    (char <= 122 && char >= 97) || (char <= 90 && char >= 65)
+  }
+
+  def letterCasePermutation(s: String): List[String] = {
+
+    var res = List[String]()
+    var ind = 0
+
+
+    while (ind < s.length){
+//      println(s"Current While Loop: Char -> ${s(ind)}")
+//      println(s"Entering recurssion start at ${ind + 1}")
+      var tempRes: List[String] = letterCasePermutation(s.substring(ind + 1, s.length))
+//      println(s"Current temporary result: ${tempRes.foreach(println)}")
+      if (tempRes.isEmpty){tempRes = List("")}
+      if (isEnglishChar(s(ind))) {
+          res = res ++ (tempRes.map(str => s(ind).toUpper + str)) ++ (tempRes.map(str => s(ind).toLower + str))
+      }
+      else {
+          res = res ++ tempRes.map(str => s(ind) + str)
+      }
+      ind += 1
+    }
+    res.filter(_.length == s.length)
+  }
+
+  def letterCasePermutationBackward(s: String): List[String] = {
+
+    var res = List[String]("")
+    var ind = s.length - 1
+
+    if (s.length == 0) {
+      List("")
+    }
+    else {
+      while (ind >= 0) {
+
+        if (isEnglishChar(s(ind))) {
+          var subInd = 0
+          var newRes = List[String]()
+          while (subInd < res.length) {
+            newRes = newRes :+ (s(ind).toUpper + res(subInd))
+            newRes = newRes :+ (s(ind).toLower + res(subInd))
+            subInd += 1
+          }
+          res = newRes
+        }
+        else {
+          var subInd = 0
+          var newRes = List[String]()
+          while (subInd < res.length) {
+            newRes = newRes :+ (s(ind) + res(subInd))
+            subInd += 1
+          }
+          res = newRes
+        }
+        ind -= 1
+      }
+      res
+    }
   }
 
 
