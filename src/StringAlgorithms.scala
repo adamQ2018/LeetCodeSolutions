@@ -328,7 +328,7 @@ object StringAlgorithms {
           case e: Exception if sign < 0 => Int.MinValue
           case e: Exception if sign > 0 => Int.MaxValue
       }
-        
+
       }
     }
     res
@@ -419,7 +419,7 @@ object StringAlgorithms {
 
     while (reminder != 0 && lvlInd < level.length) {
       val thisLevel = level(lvlInd)
-      val thisVal = (reminder / thisLevel)
+      val thisVal = reminder / thisLevel
 //      println(s"Current Level: $thisLevel, count: $thisVal")
       if (thisVal == 9 && lvlInd - 1 >= 0) {
         val nextLevel = level(lvlInd - 1)
@@ -474,7 +474,7 @@ object StringAlgorithms {
           }
           else{
 //            println("      reached else")
-            (thisMatch && dynamic(i + 1, j + 1) )
+            thisMatch && dynamic(i + 1, j + 1)
           }
         }
       }
@@ -601,7 +601,7 @@ object StringAlgorithms {
         .map(t => (charArr.indexOf(t._1), t._2.length)) //Array[ (Int, Int) ]
         .filter(_._2 == 1) //Array[ (Int, Int) ]
 
-      if (res.isEmpty) -1 else res.map(t => t._1).min
+      if (res.isEmpty) -1 else res.keys.min
     }
   }
 
@@ -636,7 +636,7 @@ object StringAlgorithms {
       if (letters(mid) <= target) {
         low = mid + 1
       }
-      else (high = mid)
+      else {high = mid}
     }
     if (letters(low) <= target) letters(0) else letters(low)
   }
@@ -932,7 +932,7 @@ object StringAlgorithms {
 //      println(s"Current temporary result: ${tempRes.foreach(println)}")
       if (tempRes.isEmpty){tempRes = List("")}
       if (isEnglishChar(s(ind))) {
-          res = res ++ (tempRes.map(str => s(ind).toUpper + str)) ++ (tempRes.map(str => s(ind).toLower + str))
+          res = res ++ tempRes.map(str => s(ind).toUpper + str) ++ tempRes.map(str => s(ind).toLower + str)
       }
       else {
           res = res ++ tempRes.map(str => s(ind) + str)
