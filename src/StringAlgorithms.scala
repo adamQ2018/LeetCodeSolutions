@@ -840,6 +840,57 @@ object StringAlgorithms {
     distance
   }
 
+  // -------------------------- *** Problem: Shortest Completing Word *** ---------------------
+  def charToPrime (s: Array[Char]): Array[Int] = {
+
+    val primes = Array(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103)
+    var ind = 0
+    var res = Array[Int]()
+
+    while (ind < s.length){
+
+      val thisChar = s(ind)
+
+      res = if (thisChar >= 97 && thisChar <= 122) res :+ primes( thisChar - 'a' ) else res
+      ind += 1
+    }
+
+    res
+  }
+
+  def strToPrimeProd (s: String): Long = {
+
+    val primes = charToPrime(s.toLowerCase.toCharArray)
+    var ind = 0
+    var res: Long = 1
+
+    while (ind < primes.length){
+      res *= primes(ind)
+      ind += 1
+    }
+
+    res
+  }
+
+  def shortestCompletingWord(licensePlate: String, words: Array[String]): String = {
+
+    val ref = strToPrimeProd(licensePlate)
+    var bestWord = " "
+    var bestLen = Int.MaxValue
+    var ind = 0
+
+    while (ind < words.length){
+      val thisWord = words(ind)
+      val thisCharProd = strToPrimeProd(thisWord)
+      if (thisCharProd % ref == 0 && thisWord.length < bestLen){
+        bestWord = thisWord
+        bestLen = thisWord.length
+      }
+      ind += 1
+    }
+    bestWord
+  }
+
 
 
 }

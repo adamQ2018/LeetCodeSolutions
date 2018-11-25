@@ -342,6 +342,8 @@ object MathAlgorithm {
     sum
   }
 
+  // -------------------------- *** Problem: Single Number *** ---------------------
+
 
 
 }

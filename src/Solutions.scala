@@ -10,10 +10,9 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val res = moveZeroes(Array(0,1,0,3,12))
-
-//    println(res)
-    res.foreach(println)
-
+    val res = shortestCompletingWord("tR28607", Array("present"))
+//    val res = strToPrimeProd("present")
+    println(res)
+//    res.foreach(println)
     }
 }

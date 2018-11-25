@@ -345,6 +345,34 @@ object ArrayAlgorithms {
     res
   }
 
-  // -------------------------- *** Problem: Longest Continuous Increasing Subsequence *** ----------------------
+  // -------------------------- *** Problem: Find All Numbers Disappeared in an Array *** ----------------------
+  def findDisappearedNumbers(nums: Array[Int]): List[Int] = {
+    var res = List[Int]()
+    var ind = 0
+
+    while (ind < nums.length){
+      if ( nums(ind) ==  -1 || nums(ind) == (ind + 1) ){
+        ind += 1
+      }
+      else {
+        if (nums(nums(ind) - 1) == nums(ind)){
+          nums(ind) = -1
+          ind += 1
+        }
+        else{
+          val temp = nums(nums(ind) - 1)
+          nums(nums(ind) - 1) = nums(ind)
+          nums(ind) = temp
+        }
+      }
+    }
+
+    ind = 0
+    while (ind < nums.length){
+      if(nums(ind) == -1){ res = res :+ (ind + 1)}
+      ind += 1
+    }
+    res
+  }
 
 }
