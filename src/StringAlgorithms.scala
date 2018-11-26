@@ -978,5 +978,130 @@ object StringAlgorithms {
     }
   }
 
+  // -------------------------- *** Problem: IP to CIDR *** ---------------------
+  def toNBitsBinary (x: Int, numBits: Int)= {
+      var ind = 0
+      while (Math.pow(2,ind) < x){
+        ind += 1
+      }
+      val arr = Array.fill(numBits)(0)
+
+      var reminder = x.toDouble
+      while (ind >= 0 && reminder != 0){
+        val thisSubstract = reminder - Math.pow(2, ind)
+        if (thisSubstract >= 0){
+          reminder = thisSubstract
+          arr(ind) = 1
+        }
+        ind -= 1
+      }
+      arr
+  }
+
+  def binaryPlus1 (input: Array[Int]) = {
+    var carry = 1
+    var ind = 0
+    val res = input
+    while (carry != 0 && ind < input.length){
+      if (res(ind) + carry == 2){
+        res(ind) = 0
+        carry = 1
+      }
+      else {
+        res(ind) = res(ind) + carry
+        carry = 0
+      }
+      ind += 1
+    }
+    res
+  }
+
+  def binaryRange (start: Int, length: Int, maxBits: Int): Array[Array[Int]] = {
+    val binaryRep = toNBitsBinary(start, maxBits)
+    var res = Array(binaryRep)
+    var initial = start + 1
+
+    while (initial < start + length){
+      println(s"CurrentNumber: $initial")
+      res = res :+ toNBitsBinary(initial, maxBits)
+      println(s"Binary Version: ${toNBitsBinary(initial, maxBits).mkString(", ")}")
+      initial += 1
+    }
+    res
+  }
+
+  def binaryArrayToString (binary: Array[Int]) = {
+    binary.reverse.mkString
+  }
+
+  def binaryStrToNumber(s: String): Int = {
+    val arr = s.toCharArray
+    var ind = arr.length - 1
+    var res = 0
+    while (ind >= 0){
+      res += math.pow(2, arr.length - 1 - ind).toInt * (arr(ind) - 48)
+      ind -= 1
+    }
+    res
+  }
+
+  def binaryToIP(s: String): String = {
+    binaryStrToNumber(s.substring(0, 8))  + "." +
+      binaryStrToNumber(s.substring(9, 16)) + "." +
+      binaryStrToNumber(s.substring(17, 24)) + "." +
+      binaryStrToNumber(s.substring(24, 32))
+  }
+
+  // INCOMPLETE!!!
+
+  def ipToCIDR(ip: String, n: Int): Unit = {
+
+    val start = ip.split("\\.").map( str => binaryArrayToString(toNBitsBinary(str.toInt, 8)) ).reduce(_ + _)
+
+    val maxPosToChange = {
+      var ind = 0
+      while (math.pow(2, ind) < n){
+        ind += 1
+      }
+      ind + 1
+    }
+
+    if (maxPosToChange == n){
+      val str = start.substring(0, start.length - maxPosToChange) + "0" * maxPosToChange
+      binaryToIP(str)
+    }
+    else{
+      var currentPosChange = maxPosToChange - 1
+      val str = start.substring(0, start.length - currentPosChange) + "0" * currentPosChange
+      str
+    }
+  }
+
+
+  // -------------------------- *** Problem: Shortest Word Distance *** ---------------------
+  def shortestDistance(words: Array[String], word1: String, word2: String): Int = {
+
+    var ind = 0
+    var pos1 = Int.MinValue/2
+    var pos2 = Int.MaxValue/2
+    var best = Int.MaxValue
+
+    while (ind < words.length) {
+
+      val currentWord = words(ind)
+
+      if (currentWord == word1){
+        pos1 = ind
+        best = math.min(math.abs(pos2 - pos1), best)
+      }
+      else if (currentWord == word2){
+        pos2 = ind
+        best = math.min(math.abs(pos2 - pos1), best)
+      }
+
+      ind += 1
+    }
+    best
+  }
 
 }

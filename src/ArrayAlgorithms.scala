@@ -375,4 +375,25 @@ object ArrayAlgorithms {
     res
   }
 
+  // -------------------------- *** Problem: Fair Candy Swap *** ---------------------
+  def fairCandySwap(A: Array[Int], B: Array[Int]): Array[Int] = {
+    val diff = (A.sum - B.sum)/2
+    var mapped = scala.collection.mutable.Map[Int, Int]()
+
+    var ind = 0
+    while (ind < A.length){
+      mapped += ( (A(ind) - diff) -> A(ind) )
+      ind += 1
+    }
+
+    ind = 0
+    while (ind < B.length
+      && ( try{mapped(B(ind)); false} catch{case e: Exception => true})
+    ){
+      ind += 1
+    }
+
+    Array( mapped(B(ind)), B(ind))
+  }
+
 }
