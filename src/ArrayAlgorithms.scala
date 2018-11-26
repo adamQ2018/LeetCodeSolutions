@@ -396,4 +396,22 @@ object ArrayAlgorithms {
     Array( mapped(B(ind)), B(ind))
   }
 
+  // -------------------------- *** Problem: Maximum Subarray *** ---------------------
+  def maxSubArray(nums: Array[Int]): Int = {
+    var globalMax = Int.MinValue
+    var ind = 0
+    var maxSoFar = 0
+
+    while (ind < nums.length){
+      // println(s"current number: ${nums(ind)}, max so far: $globalMax")
+      maxSoFar += nums(ind)
+      // println(s"Current Step resulted max: $globalMax")
+      globalMax = math.max(globalMax, maxSoFar)
+      if (maxSoFar < 0) maxSoFar = 0
+
+      ind += 1
+    }
+    globalMax
+  }
+
 }

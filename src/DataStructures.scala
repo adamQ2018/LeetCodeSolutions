@@ -191,4 +191,26 @@ object DataStructures {
 
   }
 
+  class Stack[A] {
+
+    var elements: List[A] = Nil
+
+    def push(x: A) = {
+      this.elements = x :: this.elements
+    }
+
+    def peek = {
+      this.elements.head
+    }
+
+    def pop (): A = {
+      val current = this.peek
+      this.elements = this.elements.tail
+      current
+    }
+
+    def isEmpty = this.elements.isEmpty
+
+  }
+
 }

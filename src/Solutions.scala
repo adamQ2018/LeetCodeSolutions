@@ -10,9 +10,10 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val res = fairCandySwap(Array(1,1), Array(2,2))
+    val res = maxSubArray(Array(-2, 1, -3, 4, -1, 2, 1, -5, 4))
 //    val res = ipToCIDR("255.0.0.7", 1000)
-    res.foreach(println)
+    println(res)
+//    res.foreach(println)
 //    res.foreach(x => println(  binaryArrayToString(x) ) )
     }
 }

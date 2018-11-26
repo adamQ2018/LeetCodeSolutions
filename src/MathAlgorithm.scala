@@ -54,9 +54,9 @@ object MathAlgorithm {
     var track = x
     var ind = true
 
-    while (track != 0 && ind == true){
+    while (track != 0 && ind){
       val lastDigit = track % 10
-      ind = if (lastDigit != 0) ( x % lastDigit == 0 ) else false
+      ind = if (lastDigit != 0) x % lastDigit == 0  else false
 //      println(s"Tracked Value: $track, Last Digit: $lastDigit, Current Result: $ind")
       track /= 10
     }
@@ -406,5 +406,64 @@ object MathAlgorithm {
     count
   }
 
+
+  // -------------------------- *** Problem: Valid Parentheses *** ---------------------
+  def symbolEncoder (sym: Char) = {
+
+    sym match {
+      case '{' => 1
+      case '}' => -1
+      case '[' => 2
+      case ']' => -2
+      case '(' => 3
+      case ')' => -3
+      case _ => throw new IllegalArgumentException("Not Valid Symbol")
+    }
+  }
+
+  def isParenthesesValid(s: String): Boolean = { //last in first out
+
+    var tf = true
+    var ind = 0
+    var arr = s.toCharArray
+    var stack = new Stack[Int]()
+
+    while (ind < arr.length && tf){
+      val thisChar = symbolEncoder(arr(ind))
+      if (thisChar > 0){
+        stack.push(thisChar)
+      }
+      else{
+        try {val last = stack.pop(); tf = thisChar == -1 * last}
+        catch {case e: Exception => tf = false}
+      }
+      ind += 1
+    }
+
+    tf && stack.isEmpty
+  }
+
+  // -------------------------- *** Problem: Container With Most Water *** ---------------------
+  def maxArea(height: Array[Int]): Int = {
+
+    var left = 0
+    var right = height.length - 1
+    var max = 0
+    var i = height.length - 1
+
+    while (i >= 0){
+      if (height(left) < height(right)){
+        max = math.max(max, height(left) * i)
+        left += 1
+      }
+      else{
+        max = math.max(max, height(right) * i)
+        right -= 1
+      }
+      i -= 1
+    }
+
+    max
+  }
 
 }
