@@ -83,5 +83,32 @@ object LinkedListAlgorithms {
 
   }
 
+  def mergeTwoLists(l1: NaiveListNode, l2: NaiveListNode): NaiveListNode = {
+//    println(s"entering recursive function with input 1: ${l1 == null}, input2: ${l2 == null}")
+    var res = new NaiveListNode()
+
+    if (l1 == null && l2 == null){
+//      println("Entered both null situation")
+      res = null
+    }
+    else if (l1 == null || l2 == null){
+//      println("Entered one is null situation")
+      if(l1 == null) res = l2 else res = l1
+    }
+    else{
+      if(l1.x <= l2.x ){
+        res.x = l1.x
+        println(s"entering l1.next recurssion")
+        res.next = mergeTwoLists(l1.next, l2)
+      }
+      else{
+        res.x = l2.x
+        println(s"entering l2.next recurssion")
+        res.next = mergeTwoLists(l1, l2.next)
+      }
+    }
+    res
+  }
+
 
 }

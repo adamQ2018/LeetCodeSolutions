@@ -213,4 +213,9 @@ object DataStructures {
 
   }
 
+  class NaiveListNode(var _x: Int = 0) {
+    var next: NaiveListNode = null
+    var x: Int = _x
+  }
+
 }

@@ -414,4 +414,82 @@ object ArrayAlgorithms {
     globalMax
   }
 
+  // -------------------------- *** Problem: Fruit Into Baskets *** ---------------------
+  def totalFruit(tree: Array[Int]): Int = {
+    var iter = 1
+    var maxLen = 1
+    var recorded = scala.collection.mutable.ArrayBuffer[Int](2)
+    recorded = recorded :+ tree(0)
+    var instantMax = 1
+    var newStart = 0
+
+
+    while (iter < tree.length){
+      // println(s"Current value is ${tree(iter)}")
+      if ( recorded.contains( tree(iter) ) || recorded.size < 2){ // if the value is not a new distinct or if the count of distinct is smaller than 2
+        if (tree(iter) != tree(iter - 1)){ newStart = iter }
+        if (recorded.size == 1) recorded = recorded :+ tree(iter) // update the last encountered value position
+        // println(s"without refreshing the map,\n    current map size ${mapped.size}")
+        instantMax += 1 //no matter how, once the parent "if" satisfied, increase maxLen by 1
+        iter += 1 //increase the iteration by 1
+      }
+      else {
+        // println(s"Now need to refresh the map, current value is ${tree(iter)}")
+        instantMax = iter - newStart + 1//now maxLen is starting from the last to the current
+        recorded = scala.collection.mutable.ArrayBuffer(tree(iter - 1), tree(iter)) // reassign the map
+        newStart = iter
+        // println(s"After refreshing, current instantMax is $instantMax, achieved from recorded last distinct: ${newStart}, current Map Size is ${mapped.size}")
+        iter += 1
+      }
+      maxLen = math.max(maxLen, instantMax)
+    }
+    maxLen
+  }
+
+  // -------------------------- *** Problem: Three Sum *** ---------------------
+  def twoSumWithRestriction(arr: Array[Int], target: Int, banned: Int): Array[Array[Int]] = {
+    var mapped = scala.collection.mutable.Map[Int, Int]()
+    var ind = 0
+    var companion = 0
+    var res =  Array[Array[Int]]()
+
+    while (ind < arr.length ){
+      if (ind != banned){
+        companion = target - arr(ind)
+        if ( mapped.contains(companion) ){ res = res :+ Array(arr(ind), companion) }
+        else {  mapped += (arr(ind) -> ind) }
+      }
+      ind += 1
+    }
+    res
+  }
+
+
+  def threeSum(arr: Array[Int], target: Int): Array[Array[Int]] = {
+
+    var i = 0
+    var recorded = scala.collection.mutable.Map[String, Boolean]()
+    var res = Array[Array[Int]]()
+
+    while (i < arr.length){
+      val tempRes = twoSumWithRestriction(arr, target - arr(i), i)
+      if (!tempRes.isEmpty){
+        var j = 0
+        while (j < tempRes.length){
+          val thisRes = (tempRes(j) :+ arr(i)).sorted
+          if ( !recorded.contains(thisRes.mkString(",")) ){
+            recorded += (thisRes.mkString(",") -> true)
+            res = res :+ thisRes
+          }
+          j += 1
+        }
+      }
+//      println(s"current solution to input ${arr(i)} \n    ${tempRes.map(x => x.mkString(",")).mkString("|")}")
+      i += 1
+    }
+
+    res
+  }
+
+
 }
