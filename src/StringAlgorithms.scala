@@ -1103,5 +1103,78 @@ object StringAlgorithms {
     }
     best
   }
+  // -------------------------- *** Problem: License Key Formatting *** ---------------------
+  def licenseKeyFormatting(S: String, K: Int): String = {
+    val input = S.toUpperCase.toCharArray
+    var ind = input.length - 1
+    var count = 0
+    var res: String = ""
+
+    if (input.length == 0){
+      res
+    }
+    else{
+
+      while (ind >= 0){
+        if (input(ind) != '-'){
+//          println(s"Input ${input(ind)}, current result: $res, current count: $count, current remaining index: $ind")
+          if (count % K == 0 && count != 0){
+            res = "-" + res
+          }
+          res = input(ind) + res
+          count += 1
+//          println(s"Appended ${input(ind)}, current result: $res, current count: $count, current remaining index: $ind")
+        }
+        ind -= 1
+      }
+      res
+    }
+  }
+
+  // -------------------------- *** Problem: License Key Formatting *** ---------------------
+
+  def romanToInt(s: String): Int = {
+
+    val romanToIntMap = scala.collection.mutable.Map[Char, Int](
+      'I' -> 1,
+      'V' -> 5,
+      'X' -> 10,
+      'L' -> 50,
+      'C' -> 100,
+      'D' -> 500,
+      'M' -> 1000
+    )
+
+    val input: Array[Char] = s.toCharArray()
+
+    if (input.length == 0){
+      0
+    }
+    else if(input.length == 1){
+      romanToIntMap(input(0))
+    }
+    else{
+
+      var ind = 1
+      var res = romanToIntMap(input(0))
+      var lastVal = res
+      var currentVal = res
+
+      while (ind < input.length){
+        println(s"Current Input: ${input(ind)}, last value: ${lastVal}, last res: $res")
+        currentVal = romanToIntMap(input(ind))
+        if (currentVal > lastVal){
+          res += lastVal * (-2) + currentVal
+        }
+        else{
+          res += currentVal
+        }
+        lastVal = currentVal
+        println(s"updated res: $res, updated last value: $lastVal")
+        ind += 1
+      }
+      res
+    }
+  }
 
 }

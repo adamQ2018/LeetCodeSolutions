@@ -83,6 +83,7 @@ object LinkedListAlgorithms {
 
   }
 
+  // -------------------------- *** Problem: Merge Two Sorted Lists *** ---------------------
   def mergeTwoLists(l1: NaiveListNode, l2: NaiveListNode): NaiveListNode = {
 //    println(s"entering recursive function with input 1: ${l1 == null}, input2: ${l2 == null}")
     var res = new NaiveListNode()
