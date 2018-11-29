@@ -462,8 +462,34 @@ object MathAlgorithm {
       }
       i -= 1
     }
-
     max
+  }
+
+  // -------------------------- *** Problem: Friend Circle *** ---------------------
+  def findAndRemove(M: Array[Array[Int]], i: Int): Unit ={
+    var j = 0
+    while (j < M.length){
+      if (M(i)(j) == 1){
+        M(i)(j) = 0; M(j)(i) = 0
+        findAndRemove(M, j)
+      }
+      j += 1
+    }
+  }
+
+  def findCircleNum(M: Array[Array[Int]]): Int = {
+
+    var i = 0
+    var numCircle = 0
+
+    while (i < M.length){
+      if (M(i)(i) == 1){
+        findAndRemove(M, i)
+        numCircle += 1
+      }
+      i += 1
+    }
+    numCircle
   }
 
 }

@@ -487,8 +487,30 @@ object ArrayAlgorithms {
 //      println(s"current solution to input ${arr(i)} \n    ${tempRes.map(x => x.mkString(",")).mkString("|")}")
       i += 1
     }
-
     res
+  }
+
+  // -------------------------- *** Problem: Merge Sorted Array *** ---------------------
+  def merge(nums1: Array[Int], m: Int, nums2: Array[Int], n: Int): Unit = {
+
+      var reverseInd = m + n - 1
+      var i = m - 1
+      var j = n - 1
+
+      while(reverseInd >= 0){
+
+        while(  i >= 0 && ( j == -1 || nums1(i) > nums2(j) )  ){
+          nums1(reverseInd) = nums1(i)
+          reverseInd -= 1
+          i -= 1
+        }
+
+        while(  j >= 0 && ( i == -1 || nums1(i) <= nums2(j) )  ){
+          nums1(reverseInd) = nums2(j)
+          reverseInd -= 1
+          j -= 1
+        }
+      }
   }
 
 
