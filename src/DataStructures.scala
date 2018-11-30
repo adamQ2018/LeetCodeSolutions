@@ -187,9 +187,7 @@ object DataStructures {
 
   }
 
-  case class Employee (var id: Int, var importance: Int, var subordinate: Array[Int]){
-
-  }
+  case class Employee (var id: Int, var importance: Int, var subordinate: Array[Int])
 
   class Stack[A] {
 
@@ -213,9 +211,46 @@ object DataStructures {
 
   }
 
-  class NaiveListNode(var _x: Int = 0) {
+  case class NaiveListNode(var _x: Int = 0) {
     var next: NaiveListNode = null
     var x: Int = _x
+  }
+
+  class MinStack(var elements: Array[Int], var min: Int){
+
+    def push(x: Int): Unit = {
+      val orgnlElements: Array[Int] = this.elements
+      this.elements = orgnlElements :+ x
+      if (this.min > x) {this.min = x}
+    }
+
+    def pop = {
+      val orgnlElements: Array[Int] = this.elements
+      this.elements = orgnlElements.dropRight(1)
+      if (this.elements.isEmpty){
+        this.min = Int.MaxValue
+      }
+      else{
+        this.min = this.elements.min
+      }
+    }
+
+    def top: Unit = {
+      this.elements.last
+    }
+
+    def getMin: Int = {
+      this.min
+    }
+
+    def this(min: Int){
+      this(Array(min), min)
+    }
+
+    def this(){
+      this(Array[Int](), Int.MaxValue)
+    }
+
   }
 
 }

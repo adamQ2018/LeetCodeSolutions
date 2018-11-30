@@ -10,10 +10,11 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    //      var input = Array( "flower","flow","flight")
-    val input = new NaiveListNode(1)
+//    val input = new NaiveListNode(1)
 
-    var res = removeElements(input, 1)
+//    println(test.min)
+
+//    var res = removeElements(input, 1)
 
 //    while (res != null){
 //      println(res.x)

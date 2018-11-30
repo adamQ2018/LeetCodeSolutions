@@ -3,6 +3,7 @@ import LinkedListAlgorithms._
 import StringAlgorithms._
 import DataStructures._
 import DataStructures.Node._
+import TreeAlgorithm.findTreePathSum
 
 
 object TreeAlgorithm {
@@ -17,6 +18,8 @@ object TreeAlgorithm {
       thisTree
     }
   }
+
+  // -------------------------- *** Problem: Longest Words can Built from Others *** ----------------------
 
   def addChar (trie: TrieNode, char: Char) = {
     if (trie.child(char - 'a') == null) trie.child(char - 'a') = new TrieNode(char)
@@ -91,6 +94,26 @@ object TreeAlgorithm {
 
     }
     bestStr
+  }
+
+  // -------------------------- *** Problem: Binary Tree Diameter *** ----------------------
+
+  def diameterOfBinaryTree(root: SimpleBinaryTree[Int]): Int = {
+    var diameter = 0
+
+    def findTreePathSum (node: SimpleBinaryTree[Int]): Int = {
+      if (node != null){
+        val leftPathLen = findTreePathSum(node.left)
+        val rightPathLen = findTreePathSum(node.right)
+        diameter = math.max(diameter, leftPathLen + rightPathLen)
+        math.max(leftPathLen, rightPathLen) + 1
+      } else{
+        0
+      }
+    }
+
+    findTreePathSum(root)
+    diameter
   }
 
 }

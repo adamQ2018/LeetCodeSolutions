@@ -1202,4 +1202,38 @@ object StringAlgorithms {
     }
   }
 
+  // -------------------------- *** Problem: Is Anagram *** ---------------------
+  def isAnagram(s: String, t: String): Boolean = {
+    if (s.length != t.length){
+      return false
+    }
+    else{
+      val record = new Array[Int](26)
+      val sArr = s.toCharArray
+      val tArr = t.toCharArray
+      var i = 0
+
+      while (i < sArr.length){
+        record(sArr(i)- 'a') = record(sArr(i)- 'a') + 1
+        i += 1
+      }
+
+      i = 0
+      while (i < tArr.length){
+        record(tArr(i)- 'a') = record(tArr(i)- 'a') -1
+        i += 1
+      }
+
+      i = 0
+      while(i< 26){
+        if(record(i) != 0){
+          return false
+        }
+
+        i += 1
+      }
+      true
+    }
+  }
+
 }
