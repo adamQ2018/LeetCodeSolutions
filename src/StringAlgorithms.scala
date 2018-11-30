@@ -1176,5 +1176,30 @@ object StringAlgorithms {
       res
     }
   }
+  // -------------------------- *** Problem: Longest Common Prefix *** ---------------------
+  def longestCommonPrefix(strs: Array[String]): String = {
+
+    if (strs.isEmpty || strs(0).length == 0){
+      ""
+    }
+    else {
+      var prefix = strs(0)
+      var ind = 1
+
+      while (ind < strs.length) {
+
+        val currentStr = strs(ind)
+        var i = 0
+
+        while (i < prefix.length && i < currentStr.length && currentStr(i) == prefix(i)) {
+          i += 1
+        }
+        prefix = prefix.substring(0, i)
+
+        ind += 1
+      }
+      prefix
+    }
+  }
 
 }

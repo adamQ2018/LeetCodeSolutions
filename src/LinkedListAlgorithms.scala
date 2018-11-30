@@ -110,6 +110,28 @@ object LinkedListAlgorithms {
     }
     res
   }
+  // -------------------------- *** Problem: Remove List Nodes *** ---------------------
+  def addNode(x: Int, node: NaiveListNode, terminate: Int, current: Int): NaiveListNode = { // helper function to generate input
+    if (current < terminate){
+      node.next = new NaiveListNode(x)
+      addNode(x, node.next, terminate, current + 1)
+    }
+    else{
+      null
+    }
+    node
+  }
+
+  def removeElements(head: NaiveListNode, x: Int): NaiveListNode = {
+    if(head == null){
+      return null
+    }
+    else{
+      if (head.next != null) head.next = removeElements(head.next, x)
+    }
+
+    if (head.x == x) head.next else head
+  }
 
 
 }

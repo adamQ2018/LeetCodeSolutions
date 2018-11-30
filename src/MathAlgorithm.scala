@@ -48,6 +48,48 @@ object MathAlgorithm {
     count
   }
 
+  // -------------------------- *** Problem: Add Binary *** ----------------------
+  def addBinaryWrapped(a: String, b: String): String = {
+    binaryArrayToString(toBinary(binaryStrToNumber(a) + binaryStrToNumber(b)) )
+  }
+
+  def addBinary(a: String, b: String): String = {
+
+    val longer = if (a.length > b.length) a else b
+    val shorter = if (a.length > b.length) b else a
+
+    var i = shorter.length - 1
+    var j = longer.length - 1
+    var res = ""
+    var carry = 0
+
+    while(i >= 0){
+      if (longer(j) + shorter(i) + carry - '0' - '0' >= 2){
+        res = longer(j) + shorter(i) + carry - '0' - '0' - 2 + res
+        carry = 1
+      }
+      else{
+        res = longer(j) + shorter(i) + carry - '0' - '0' + res
+        carry = 0
+      }
+      i -= 1
+      j -= 1
+    }
+
+    while (j >= 0){
+      if ((longer(j) - '0' + carry) == 2){
+        res = longer(j) + carry - '0' - 2 + res
+        carry = 1
+      }
+      else{
+        res = longer(j) - '0' + carry + res
+        carry = 0
+      }
+      j -= 1
+    }
+    if (carry == 1) carry.toString + res else res
+  }
+
   // -------------------------- *** Problem: Self Dividing Numbers *** ----------------------
   def isSelfDivide (x: Int): Boolean = {
 
@@ -492,4 +534,41 @@ object MathAlgorithm {
     numCircle
   }
 
+  // -------------------------- *** Problem: Number Islands *** ---------------------
+  def findAndRemoveDirectEdge(M: Array[Array[Char]], i: Int, j: Int): Unit ={
+    println(s"entered with: $i, $j")
+    M(i)(j) = '0'
+    if (i < M.length && j < M.last.length - 1 && M(i)(j + 1) == '1'){
+      M(i)(j + 1) = '0'
+      findAndRemoveDirectEdge(M, i, j+1)
+    }
+    if (i < M.length - 1 && j < M.last.length && M(i+1)(j) == '1'){
+      M(i+1)(j) = '0'
+      findAndRemoveDirectEdge(M, i+1, j)
+    }
+    if (i >= 1 && j < M.last.length && M(i - 1)(j) == '1'){
+      M(i - 1)(j) = '0'
+      findAndRemoveDirectEdge(M, i - 1, j)
+    }
+    if (i < M.length && j >= 1 && M(i)(j - 1) == '1'){
+      M(i)(j - 1) = '0'
+      findAndRemoveDirectEdge(M, i, j - 1)
+    }
+  }
+
+  def numIslands(M: Array[Array[Char]]): Int = {
+
+    var i = 0
+    var nIsland = 0
+
+    while (i < M.length){
+      var j = 0
+      while(j < M.last.length){
+        if(M(i)(j) == '1') {findAndRemoveDirectEdge(M, i, j); nIsland += 1}
+        j += 1
+      }
+      i += 1
+    }
+    nIsland
+  }
 }
