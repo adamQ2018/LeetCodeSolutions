@@ -3,7 +3,7 @@ import LinkedListAlgorithms._
 import StringAlgorithms._
 import DataStructures._
 import DataStructures.Node._
-import TreeAlgorithm.findTreePathSum
+import TreeAlgorithm._
 
 
 object TreeAlgorithm {

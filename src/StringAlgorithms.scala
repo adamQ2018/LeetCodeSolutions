@@ -1236,4 +1236,23 @@ object StringAlgorithms {
     }
   }
 
+  // -------------------------- *** Delete Columns to Make Sorted *** ---------------------
+  def minDeletionSize(A: Array[String]): Int = {
+
+    var i = 0
+    var count = 0
+
+    while(i < A.last.length){
+      var p = 1
+      var continue = true
+      while(p < A.length && continue){
+        continue = A(p)(i) >= A(p - 1)(i)
+        p += 1
+      }
+      count = if (!continue) count + 1 else count
+      i += 1
+    }
+    count
+  }
+
 }

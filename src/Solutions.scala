@@ -14,12 +14,14 @@ object Solutions {
 
 //    println(test.min)
 
-//    var res = removeElements(input, 1)
+    var res = minDeletionSize(Array("zyx","wvu","tsr"))
 
 //    while (res != null){
 //      println(res.x)
 //      res = res.next
 //    }
+
+    println(res)
 //    println(res.x)
 //    res.foreach(println)
 //    res.foreach(x => {println("solution:"); x.foreach(println)})
