@@ -13,8 +13,8 @@ object Solutions {
 //    val input = new NaiveListNode(1)
 
 //    println(test.min)
-
-    var res = minDeletionSize(Array("zyx","wvu","tsr"))
+//    val input = Array(1, 3, 3, 3, 9 ,5, 3, 5, 3)
+    var res = isPowerOfThree(28)
 
 //    while (res != null){
 //      println(res.x)
@@ -24,6 +24,7 @@ object Solutions {
     println(res)
 //    println(res.x)
 //    res.foreach(println)
+//    input.foreach(println)
 //    res.foreach(x => {println("solution:"); x.foreach(println)})
     }
 }

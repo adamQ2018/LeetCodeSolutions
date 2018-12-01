@@ -571,4 +571,15 @@ object MathAlgorithm {
     }
     nIsland
   }
+
+  // -------------------------- *** Problem: Poor Pigs *** ---------------------
+  def poorPigs(buckets: Int, minutesToDie: Int, minutesToTest: Int): Int = {
+    ( math.log(buckets)/( math.log(minutesToTest/minutesToDie + 1) ) ).toInt
+  }
+
+  // -------------------------- *** Problem: Power of 3 *** ---------------------
+  def isPowerOfThree(n: Int): Boolean = { // this only works for integers
+    n > 0 && math.pow(3, 33)%n == 0
+  }
+
 }

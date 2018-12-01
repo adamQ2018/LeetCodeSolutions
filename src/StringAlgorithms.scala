@@ -1255,4 +1255,27 @@ object StringAlgorithms {
     count
   }
 
+  // -------------------------- *** Ransom Note *** ---------------------
+  def canConstruct(ransomNote: String, magazine: String): Boolean = {
+
+    val record = new Array[Int](26)
+    var i = 0
+
+    while (i < magazine.length){
+      record(magazine(i) - 'a') = record(magazine(i) - 'a') + 1
+      i+= 1
+    }
+
+    i = 0
+
+    while(i < ransomNote.length){
+      record(ransomNote(i) - 'a') = record(ransomNote(i) - 'a') - 1
+      if (record(ransomNote(i) - 'a') == -1){
+        return false
+      }
+      i += 1
+    }
+    true
+  }
+
 }

@@ -513,5 +513,105 @@ object ArrayAlgorithms {
       }
   }
 
+  // -------------------------- *** Problem: Best Time to Buy and Sell Stock II *** ---------------------
+  def maxProfit(prices: Array[Int]): Int = {
+
+    var profit = 0
+    var i = 1
+
+    while(i < prices.length){
+      profit += math.max(0, prices(i) - prices(i - 1))
+      i += 1
+    }
+
+    profit
+  }
+
+  // -------------------------- *** Problem: Majority Element *** ---------------------
+  def partition (A: Array[Int], start: Int, end: Int) = {
+    val base = A(end)
+    var i = start - 1
+    var j = start
+
+    while (j < end) {
+      if(A(j) < base) {
+        i += 1
+        val temp = A(j)
+        A(j) = A(i)
+        A(i) = temp
+      }
+      j += 1
+    }
+    val temp = A(end)
+    A(end) = A(i + 1)
+    A(i + 1) = temp
+    i + 1
+  }
+
+  def quickSort(A: Array[Int], start: Int, end: Int): Unit = {
+    if (start < end) {
+      val pivot = partition(A, start, end)
+      quickSort(A, start, pivot - 1)
+      quickSort(A, pivot + 1, end)
+    }
+  }
+
+  def majorityElementBySort(nums: Array[Int]): Int = {
+    quickSort(nums, 0, nums.length - 1)
+    nums(nums.length/2)
+  }
+
+  def majorityElementByHashMap(nums: Array[Int]): Int = {
+
+    val record = scala.collection.mutable.Map[Int, Int]()
+    var i = 0
+    var max = 0
+    var maxNum = 0
+
+    while (i < nums.length){
+      if( record.contains(nums(i)) ){
+        println(s"Record Contains this Number: ${nums(i)}, the count is ${record(nums(i))}")
+        record +=  (nums(i) -> (record(nums(i)) + 1) )
+        println(s"Updated Count for this Number: ${nums(i)}, the count becomes ${record(nums(i))}")
+      }
+      else {
+        record += (nums(i) -> 1)
+        println(s"Record Does Not Contain this Number: ${nums(i)}, added count to be ${record(nums(i))}")
+      }
+
+      if (record(nums(i)) > max){
+        println(s"The current count is ${record(nums(i))}, larger than the current max: $max")
+        max = record(nums(i))
+        maxNum = nums(i)
+        println(s"Max has been updated to be $max, max counted number becomes $maxNum")
+      }
+
+      i += 1
+    }
+    maxNum
+  }
+
+  def majorityElement(nums: Array[Int]): Int = {
+
+    var count = 1
+    var res = nums(0)
+    var i = 1
+
+    while(i < nums.length){
+      if(count == 0){
+        res = nums(i)
+        count = 1
+      }
+      else if (res == nums(i)){
+        count += 1
+      }
+      else{
+        count -= 1
+      }
+      i += 1
+    }
+    res
+  }
+
 
 }
