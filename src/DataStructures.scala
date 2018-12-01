@@ -253,4 +253,82 @@ object DataStructures {
 
   }
 
+  class MaxStack(var elements: Array[Int], var max: Int){
+
+    var maxLoc = -1
+
+    def push(x: Int): Unit = {
+      this.elements = this.elements :+ x
+      if (x >= max){
+        this.max = x
+        maxLoc = this.elements.length - 1
+      }
+    }
+
+    def pop: Int = {
+      if (this.elements.last == max){
+        popMax
+      }
+      else{
+        val temp = this.top
+        this.elements = this.elements.dropRight(1)
+        temp
+      }
+    }
+
+    def top(): Int = {
+      this.elements.last
+    }
+
+    def peekMax(): Int = {
+      this.max
+    }
+
+    def popMax(): Int = {
+      val temp = this.max
+
+      if(this.elements.length == 1){
+        this.elements = this.elements.dropRight(1)
+        this.max = Int.MinValue
+        this.maxLoc = -1
+      }
+      else{
+
+        var i = 0
+        this.max = Int.MinValue
+        var tempMaxLoc = -1
+
+        while (i < maxLoc){
+          if (this.elements(i) >= this.max){
+            this.max = this.elements(i)
+            tempMaxLoc = i
+          }
+          i += 1
+        }// now i should be max loc
+
+        while (i < this.elements.length - 1){
+          this.elements(i) = this.elements(i+1)
+          if(this.elements(i+1) >= this.max){
+            this.max = this.elements(i+1)
+            tempMaxLoc = i
+          }
+          i += 1
+        }
+        this.elements = this.elements.dropRight(1)
+        maxLoc = tempMaxLoc
+      }
+      temp
+    }
+
+
+    def this(max: Int){
+      this(Array(max), max)
+    }
+
+    def this(){
+      this(Array[Int](), Int.MinValue)
+    }
+
+  }
+
 }

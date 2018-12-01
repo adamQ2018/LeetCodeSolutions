@@ -12,16 +12,15 @@ object Solutions {
 
 //    val input = new NaiveListNode(1)
 
-//    println(test.min)
 //    val input = Array(1, 3, 3, 3, 9 ,5, 3, 5, 3)
-    var res = isPowerOfThree(28)
+//    var res = isPalindrome("0P")
 
 //    while (res != null){
 //      println(res.x)
 //      res = res.next
 //    }
 
-    println(res)
+//    println(res)
 //    println(res.x)
 //    res.foreach(println)
 //    input.foreach(println)

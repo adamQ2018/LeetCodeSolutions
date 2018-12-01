@@ -1278,4 +1278,35 @@ object StringAlgorithms {
     true
   }
 
+  // -------------------------- *** Ransom Note *** ---------------------
+  def isAlphanumeric (c: Char) = {
+    (c <= 122 && c >= 97) || (c <= 90 && c >= 65) || (c >= 48 && c <=57)
+  }
+
+  def isPalindrome(s: String): Boolean = {
+
+    val arr = s.toCharArray
+    var i = 0
+    var j = arr.length - 1
+
+    while (i <= j){
+//      println(s"Current Forward r/oute char: ${arr(i)}")
+//      println(s"Current Backward route char: ${arr(j)}")
+      if (!isAlphanumeric(arr(i)) || !isAlphanumeric(arr(j)) ){
+        while ( i < arr.length && !isAlphanumeric(arr(i)) ) {i += 1}
+        while ( j >= 0 &&  !isAlphanumeric(arr(j))) {j -= 1}
+//        println(s"current i: $i, current j: $j")
+      }
+      else{
+        val thisForward = if (arr(i) >= 97) arr(i) - 32 else arr(i)
+        val thisBackWard = if (arr(j) >= 97) arr(j) - 32 else arr(j)
+        if (thisForward != thisBackWard) return false
+        i += 1
+        j -= 1
+      }
+    }
+
+    true
+  }
+
 }
