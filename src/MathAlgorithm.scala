@@ -641,4 +641,61 @@ object MathAlgorithm {
     }
     perimeter
   }
+
+  // -------------------------- *** Problem: Baseball Points Recorder *** ---------------------
+  def calBaseBallPoints(ops: Array[String]): Int = {
+
+    if (ops.isEmpty) 0
+    else{
+      var points = ops(0).toInt
+      var validLoc = Array(0)
+      var i = 1
+      var thisOp = ""
+      var thisScore = 0
+
+      while(i < ops.length){
+        thisOp = ops(i)
+        if (thisOp == "C"){
+          points -= ops(validLoc.last).toInt
+          validLoc = validLoc.dropRight(1)
+        }
+        else if (thisOp == "D"){
+          thisScore = ops(validLoc.last).toInt * 2
+          points += thisScore
+          validLoc = validLoc :+ i
+          ops(i) = thisScore.toString
+        }
+        else if (thisOp == "+"){
+          thisScore = ops(validLoc.last).toInt + ops(validLoc(validLoc.length - 2)).toInt
+          points += thisScore
+          validLoc = validLoc :+ i
+          ops(i) = thisScore.toString
+        }
+        else{
+          points += ops(i).toInt
+          validLoc = validLoc :+ i
+        }
+        i += 1
+      }
+      points
+    }
+  }
+
+  def calPoints(ops: Array[String]): Int = {
+    var recorder = Array[Int]()
+    var i = 0
+    while (i < ops.length){
+      if (ops(i) == "+") recorder = recorder :+ recorder.takeRight(2).sum
+      else if (ops(i) == "D") recorder = recorder :+ recorder.last * 2
+      else if (ops(i) == "C") recorder = recorder.dropRight(1)
+      else recorder = recorder :+ ops(i).toInt
+      i += 1
+    }
+    recorder.sum
+  }
+
+
+
+
+
 }
