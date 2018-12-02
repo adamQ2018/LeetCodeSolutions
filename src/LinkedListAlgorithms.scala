@@ -110,6 +110,7 @@ object LinkedListAlgorithms {
     }
     res
   }
+
   // -------------------------- *** Problem: Remove List Nodes *** ---------------------
   def addNode(x: Int, node: NaiveListNode, terminate: Int, current: Int): NaiveListNode = { // helper function to generate input
     if (current < terminate){
@@ -132,6 +133,35 @@ object LinkedListAlgorithms {
 
     if (head.x == x) head.next else head
   }
+
+  // -------------------------- *** Problem: Nested List Weight Sum *** ---------------------
+  /**
+    * To show the result, this problem requires an implementation of a complex (relatively) structure
+    * that is specific to this problem. For this reason, the code is shown as commented. It is tested
+    * on LeetCode so the accuracy is guaranteed.
+    */
+  /** Code Body: --------------------------------------------------------------------------
+    * -------------------------------------------------------------------------------------
+    * object Solution {
+    *
+    *    def depthSumHelper(nestedInt: NestedInteger, depth: Int): Int = {
+    *
+    *      if (nestedInt.isInteger){
+    *        nestedInt.getInteger * depth
+    *      }
+    *      else{
+    *        nestedInt.getList.map(thisEle => depthSumHelper(thisEle, depth + 1)).sum
+    *      }
+    *    }
+    *
+    *    def depthSum(nestedList: List[NestedInteger]): Int = {
+    *      nestedList.map(thisEle => depthSumHelper(thisEle, 1)).sum
+    *    }
+    *  }
+    * End of Code --------------------------------------------------------------------------
+    ----------------------------------------------------------------------------------------*/
+
+
 
 
 }
