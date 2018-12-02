@@ -634,5 +634,58 @@ object ArrayAlgorithms {
     res
   }
 
+  // -------------------------- *** Problem: Sort Array by Parity *** ---------------------
+  def sortArrayByParityII(A: Array[Int]): Array[Int] = {
+
+    val input = A
+    var oddLoc = 1
+    var evenLoc = 0
+
+    while (oddLoc < A.length && evenLoc < A.length - 1){
+      while (oddLoc < A.length && input(oddLoc)%2 !=0){
+        oddLoc += 2
+      }
+      while (evenLoc < A.length - 1 && input(evenLoc)%2 ==0){
+        evenLoc += 2
+      }
+      if (oddLoc < A.length && evenLoc < A.length - 1){
+        val temp = input(oddLoc)
+        input(oddLoc) = input(evenLoc)
+        input(evenLoc) = temp
+        oddLoc += 2
+        evenLoc += 2
+      }
+    }
+    input
+  }
+
+  // -------------------------- *** Problem: Find Anagram Mappings *** ---------------------
+  def anagramMappings(A: Array[Int], B: Array[Int]): Array[Int] = {
+
+    var hashed = scala.collection.mutable.HashMap[Int, Array[Int]]()
+    var i = 0
+
+    while (i < B.length){
+      if (hashed.contains(B(i))){
+        hashed += ( B(i) -> (hashed(B(i)) :+ i) )
+      }
+      else{
+        hashed += ( B(i) -> Array(i) )
+      }
+      i += 1
+    }
+
+    i = 0
+    var res = Array[Int]()
+
+    while (i < A.length){
+      res = res :+ hashed(A(i)).last
+      hashed += ( A(i) -> hashed(A(i)).dropRight(1) )
+      i += 1
+    }
+
+    res
+  }
+
 
 }

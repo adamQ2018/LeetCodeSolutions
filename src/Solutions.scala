@@ -10,8 +10,10 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val input = Array(4,3,2,7,8,2,3,1)
-    val res = findDuplicates(input)
+    val input1 = Array(12, 28, 12, 32, 50)
+    val input2 = Array(50, 12, 32, 12, 28)
+
+    val res = anagramMappings(input1, input2)
 
     // ----- print if res is a linked data structure
 //    while (res != null){

@@ -1305,8 +1305,34 @@ object StringAlgorithms {
         j -= 1
       }
     }
-
     true
+  }
+
+  // -------------------------- *** DI String Match *** ---------------------
+  def diStringMatch(command: String): Array[Int] = {
+    var res = Array[Int](0)
+    var i = 0
+    var decrease = 0
+    var increase = 0
+
+    while (i < command.length){
+      if (command(i) == 'I'){
+        increase += 1
+        res = res :+ increase
+      }
+      else{
+        decrease -= 1
+        res = res :+ decrease
+      }
+      i += 1
+    }
+
+    i = 0
+    while (i < res.length){
+      res(i) = res(i) - decrease
+      i += 1
+    }
+    res
   }
 
 }
