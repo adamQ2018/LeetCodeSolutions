@@ -1,5 +1,7 @@
 import DataStructures.LinkedList
 
+import scala.reflect.ClassTag
+
 object DataStructures {
 
   sealed trait LinkedList[A] {
@@ -44,7 +46,7 @@ object DataStructures {
       current
     }
 
-    def hasNext = ( this.next != null )
+    def hasNext = this.next != null
 
     def :+ (x: A) = addNode (x)
 
@@ -348,7 +350,62 @@ object DataStructures {
   }
 
   // ----------------------------- **************************** ---------------------
-  // --------------------------------- Structure: Max Stack -------------------------
+  // --------------------------------- Structure: Queue     -------------------------
   // ----------------------------- **************************** ---------------------
+  class Queue[A: ClassTag](val size: Int) {
+
+    var currentLoc = 0
+    var currentSize = 0
+    var elements = new Array[A](size)
+
+    def add(x: A): Unit = {
+      elements(currentLoc) = x
+      currentLoc = if ((currentLoc + 1) > size - 1) 0 else currentLoc + 1
+      currentSize = if (currentSize + 1 > size) size else currentSize + 1
+    }
+
+    def += (x: A) = {
+      add(x)
+    }
+
+
+    def swap(loc1: Int, loc2: Int): Unit ={
+      val temp = elements(loc1)
+      elements(loc1) = elements(loc2)
+      elements(loc2) = temp
+    }
+
+    def last = {
+      elements.last
+    }
+
+    def head = {
+      elements.head
+    }
+
+    def merge (that: Queue[A]) = {
+      val res = new Queue[A](that.size + this.size)
+      res.elements = that.elements ++ this.elements
+      res.currentSize = that.currentSize + this.currentSize
+      res.currentLoc = if (res.currentSize == res.size) 0 else res.currentSize - 1
+      res
+    }
+
+    def this() = {
+      this(100)
+    }
+  }
+
+  // ----------------------------- **************************** ---------------------
+  // ------------------------------ Structure: Moving Average -------------------------
+  // ------------------------------ **** By Using Queue ***** ---------------------
+  class MovingAverage(size: Int){
+    var elements = new Queue[Int](size)
+
+    def next(x: Int) = {
+      elements += x
+      elements.elements.sum/elements.currentSize.toDouble
+    }
+  }
 
 }

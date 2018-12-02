@@ -704,7 +704,7 @@ object StringAlgorithms {
 
     while (i >= 0) {
 //      println(s"Current Max Array Position: $i, Min Array Position: ${i - diff}")
-      val thisValue = maxArr(i)- 48 + carry + (if (i - diff >= 0) (minArr(i - diff) - 48) else 0)
+      val thisValue = maxArr(i)- 48 + carry + (if (i - diff >= 0) minArr(i - diff) - 48 else 0)
       carry = if (thisValue >= 10) 1 else 0
 //      println(s"Current Carry: $carry, Add-on digit: ${thisValue%10}")
       res = (if (thisValue >= 10) (thisValue%10).toString else thisValue.toString) + res
@@ -1110,7 +1110,7 @@ object StringAlgorithms {
     var count = 0
     var res: String = ""
 
-    if (input.length == 0){
+    if (input.isEmpty){
       res
     }
     else{
@@ -1335,4 +1335,38 @@ object StringAlgorithms {
     res
   }
 
+  // -------------------------- *** Subdomain Visit Count *** ---------------------
+  def subdomainVisits(cpdomains: Array[String]): List[String] = {
+
+    var mapped = scala.collection.mutable.HashMap[String, Int]()
+    var thisString: String = ""
+    var thisList = Array[String]()
+    var mappedVal = 0
+    var thisTtl = 0
+
+    var i = 0
+
+    while(i < cpdomains.length){
+
+      thisString = cpdomains(i).split(" ").last
+      thisTtl = cpdomains(i).split(" ").head.toInt
+      thisList = thisString.split("\\.")
+      println(s"Current String: $thisString, current visit volume: $thisTtl")
+      var j = thisList.length - 1
+      var currentConcat = if (j >= 0) thisList(j) else ""
+      while (j >= 0){
+        mappedVal = if (mapped.contains(currentConcat)) mapped(currentConcat) + thisTtl else thisTtl
+        println(s"New Mapped Values: $currentConcat -> $mappedVal")
+        mapped += (currentConcat -> mappedVal)
+        j -= 1
+        if (j >= 0){
+          currentConcat = thisList(j) + "." + currentConcat
+          println(s"Current Concated: $currentConcat")
+        }
+      }
+      i += 1
+    }
+
+    mapped.map({case (k, v) => v.toString + " " + k}).toList
+  }
 }
