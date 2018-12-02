@@ -1053,7 +1053,7 @@ object StringAlgorithms {
   }
 
   // INCOMPLETE!!!
-
+/**
   def ipToCIDR(ip: String, n: Int): Unit = {
 
     val start = ip.split("\\.").map( str => binaryArrayToString(toNBitsBinary(str.toInt, 8)) ).reduce(_ + _)
@@ -1076,7 +1076,7 @@ object StringAlgorithms {
       str
     }
   }
-
+*/
 
   // -------------------------- *** Problem: Shortest Word Distance *** ---------------------
   def shortestDistance(words: Array[String], word1: String, word2: String): Int = {
