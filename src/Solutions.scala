@@ -10,22 +10,33 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val input1 = Array(12, 28, 12, 32, 50)
-    val input2 = Array(50, 12, 32, 12, 28)
+//    val input1 = Array(12, 28, 12, 32, 50)
+//    val input2 = Array(50, 12, 32, 12, 28)
 
-    val res = anagramMappings(input1, input2)
+    val inputMat = Array(
+      Array(0, 1, 0, 0),
+      Array(1, 1, 1, 0),
+      Array(0, 1, 0, 0),
+      Array(1, 1, 0, 0)
+    )
+
+    val res = islandPerimeter(inputMat)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
 //      println(res.x)
 //      res = res.next
 //    }
+
     // ----- print simple type result
-//    println(res)
+    println(res)
+
     // ----- print if res is an object
 //    println(res.x)
+
     // ----- print for res as collection
-    res.foreach(println)
+//    res.foreach(println)
+
     // ----- print for more than one layer collection
 //    res.foreach(x => {println("solution:"); x.foreach(println)})
     }

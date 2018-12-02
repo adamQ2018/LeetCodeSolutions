@@ -609,9 +609,36 @@ object MathAlgorithm {
     }
 
 //    println(s"Deduced number: $number, need $nthDigit th digit")
-
     ((number/math.pow(10, (digits - nthDigit)).toLong) % 10).toInt
   }
 
+  // -------------------------- *** Problem: Island Perimeter *** ---------------------
+  def findCellPerimeter(M: Array[Array[Int]], i: Int, j: Int): Int = {
 
+    var perimeter = 0
+
+    if (M(i)(j) == 1){
+      if(i + 1 == M.length) {perimeter += 1} else { perimeter += (if (M(i + 1)(j) == 0) 1 else 0) }
+      if(i - 1 == -1) {perimeter += 1} else { perimeter += (if (M(i - 1)(j) == 0) 1 else 0) }
+      if(j + 1 == M.last.length) {perimeter += 1} else { perimeter += (if (M(i)(j + 1) == 0) 1 else 0) }
+      if(j - 1 == -1) {perimeter += 1} else { perimeter += (if (M(i)(j - 1) == 0) 1 else 0) }
+    }
+    perimeter
+  }
+
+  def islandPerimeter(grid: Array[Array[Int]]): Int = {
+
+    var i = 0
+    var perimeter = 0
+
+    while(i < grid.length){
+      var j = 0
+      while (j < grid.last.length){
+        perimeter += findCellPerimeter(grid, i, j)
+        j += 1
+      }
+      i += 1
+    }
+    perimeter
+  }
 }
