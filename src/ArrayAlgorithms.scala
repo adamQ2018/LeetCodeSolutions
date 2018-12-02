@@ -613,5 +613,26 @@ object ArrayAlgorithms {
     res
   }
 
+  // -------------------------- *** Problem: Find All Duplicates in an Array *** ---------------------
+  def findDuplicates(nums: Array[Int]): List[Int] = {
+
+    var i = 0
+    var loc = 0
+    var res = List[Int]()
+
+    while(i < nums.length){
+      loc = math.abs(nums(i)) - 1
+      if (nums(loc) < 0){
+        res = res :+ math.abs(nums(i))
+        nums(loc) = - nums(loc)
+      }
+      else{
+        nums(loc) = - nums(loc)
+      }
+      i += 1
+    }
+    res
+  }
+
 
 }

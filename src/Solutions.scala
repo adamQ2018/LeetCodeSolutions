@@ -10,20 +10,21 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-//    val input = new NaiveListNode(1)
+    val input = Array(4,3,2,7,8,2,3,1)
+    val res = findDuplicates(input)
 
-//    val input = Array(1, 3, 3, 3, 9 ,5, 3, 5, 3)
-    var res = findNthDigit(1000000000)
-
+    // ----- print if res is a linked data structure
 //    while (res != null){
 //      println(res.x)
 //      res = res.next
 //    }
-
-    println(res)
+    // ----- print simple type result
+//    println(res)
+    // ----- print if res is an object
 //    println(res.x)
-//    res.foreach(println)
-//    input.foreach(println)
+    // ----- print for res as collection
+    res.foreach(println)
+    // ----- print for more than one layer collection
 //    res.foreach(x => {println("solution:"); x.foreach(println)})
     }
 }

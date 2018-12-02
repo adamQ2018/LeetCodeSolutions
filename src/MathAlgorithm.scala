@@ -597,7 +597,7 @@ object MathAlgorithm {
       digits += 1
     }//O(1)
 
-    println(s"Deduced digit level $digits, last boundary number: $levelBound")
+//    println(s"Deduced digit level $digits, last boundary number: $levelBound")
     var nthDigit = input % digits
 
     val number: Long = if (nthDigit == 0){
@@ -608,7 +608,7 @@ object MathAlgorithm {
       input/digits + 1 + levelBound
     }
 
-    println(s"Deduced number: $number, need $nthDigit th digit")
+//    println(s"Deduced number: $number, need $nthDigit th digit")
 
     ((number/math.pow(10, (digits - nthDigit)).toLong) % 10).toInt
   }
