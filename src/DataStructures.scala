@@ -6,12 +6,10 @@ object DataStructures {
     var data: A
     var next: LinkedList[A]
   }
-//
-//  case object NilNode extends LinkedList[Nothing] {
-//    var data = throw new Exception ("You reached end of the linked list")
-//    var next = throw new Exception ("You reached end of the linked list")
-//  }
 
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Linked List Structure -------------
+  // ----------------------------- **************************** ---------------------
   class Node[A](var data: A, var next: Node[A]){
 
     class NilNode extends Node[A](data, next){
@@ -132,6 +130,9 @@ object DataStructures {
 //    def apply (x: Long, next: Node[Long]): Node[Long] = new Node[Long](x.toLong, next)
   }
 
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Binary Tree Structure -------------
+  // ----------------------------- **************************** ---------------------
   class SimpleBinaryTree[A] (var data: A,  var left: SimpleBinaryTree[A], var right: SimpleBinaryTree[A]){
 
     class NilTree extends SimpleBinaryTree[A](data, left, right){
@@ -154,6 +155,9 @@ object DataStructures {
 
   }
 
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Trie Structure --------------------
+  // ----------------------------- **************************** ---------------------
   class TrieNode (var thisChar: Char, var child: Array[TrieNode], var isWord: Boolean, var word: String) {
 
     def this(value: Char) {
@@ -187,6 +191,9 @@ object DataStructures {
 
   }
 
+  // ---------------------------------------- **************************** ----------------------------------
+  // --------------------------------- Structure: Simple Employee Info Structure ----------------------------
+  // ---------------------------------------------- Problem Specific ----------------------------------------
   case class Employee (var id: Int, var importance: Int, var subordinate: Array[Int])
 
   class Stack[A] {
@@ -211,11 +218,17 @@ object DataStructures {
 
   }
 
+  // ---------------------------------------- **************************** ----------------------------------
+  // --------------------------------- Structure: Simple Linked List Structure ------------------------------
+  // ---------------------------------------------- Problem Specific ----------------------------------------
   case class NaiveListNode(var _x: Int = 0) {
     var next: NaiveListNode = null
     var x: Int = _x
   }
 
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Min Stack -------------------------
+  // ----------------------------- **************************** ---------------------
   class MinStack(var elements: Array[Int], var min: Int){
 
     def push(x: Int): Unit = {
@@ -253,6 +266,9 @@ object DataStructures {
 
   }
 
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Max Stack -------------------------
+  // ----------------------------- **************************** ---------------------
   class MaxStack(var elements: Array[Int], var max: Int){
 
     var maxLoc = -1
@@ -330,5 +346,9 @@ object DataStructures {
     }
 
   }
+
+  // ----------------------------- **************************** ---------------------
+  // --------------------------------- Structure: Max Stack -------------------------
+  // ----------------------------- **************************** ---------------------
 
 }
