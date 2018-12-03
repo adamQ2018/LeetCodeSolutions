@@ -161,6 +161,24 @@ object LinkedListAlgorithms {
     * End of Code --------------------------------------------------------------------------
     ----------------------------------------------------------------------------------------*/
 
+  // -------------------------- *** Problem: Reverse Linked List *** ---------------------
+  def reverseList(head: NaiveListNode): NaiveListNode = {
+    if (head == null){
+      head
+    }
+    else{
+      var current = head
+      var prev: NaiveListNode = null
+      while (current != null){
+        var temp = current.next
+        current.next = prev
+        prev = current
+        current = temp
+      }
+      prev
+    }
+  }
+
 
 
 

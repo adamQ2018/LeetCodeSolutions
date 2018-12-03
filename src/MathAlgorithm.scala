@@ -90,6 +90,19 @@ object MathAlgorithm {
     if (carry == 1) carry.toString + res else res
   }
 
+  // -------------------------- *** Problem: Bitwise Plus *** ----------------------
+  def bitwisePlus(a: Int, b: Int): Int = {
+    if (b == 0) {
+      a //ending case
+    }
+    else if (a == 0){
+      b //ending case
+    }
+    else{
+      bitwisePlus( a ^ b, (a & b) << 1) //if b not 0 it actually means the value has a carry value on some position
+    }
+  }
+
   // -------------------------- *** Problem: Self Dividing Numbers *** ----------------------
   def isSelfDivide (x: Int): Boolean = {
 

@@ -1369,4 +1369,30 @@ object StringAlgorithms {
 
     mapped.map({case (k, v) => v.toString + " " + k}).toList
   }
+
+  // -------------------------- *** Problem: Reverse Words in a String III *** ---------------------
+  def reverseWords(s: String): String = {
+    var i = 0
+    var currentEndLoc = 0
+    var currentStartLoc = 0
+    var res = ""
+
+    while (i < s.length){
+      currentStartLoc = i
+      currentEndLoc = i
+      while (currentEndLoc < s.length - 1 && s(currentEndLoc + 1) != ' '){
+        currentEndLoc += 1
+      }
+      i = currentEndLoc + 1
+      while (currentEndLoc >= currentStartLoc){
+        res += s(currentEndLoc)
+        currentEndLoc -= 1
+      }
+      if (i < s.length){
+        res += " "
+      }
+      i += 1
+    }
+    res
+  }
 }

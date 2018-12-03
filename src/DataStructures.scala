@@ -407,5 +407,40 @@ object DataStructures {
       elements.elements.sum/elements.currentSize.toDouble
     }
   }
+  // ----------------------------- **************************** ---------------------
+  // ------------------------------ Structure: Moving Average -------------------------
+  // ------------------------------ **** By Using Queue ***** ---------------------
+  class StackByQueue[A: ClassTag] {
+
+    var elements = scala.collection.mutable.Queue[A]()
+
+    def push(x: A) {
+      val helper = scala.collection.mutable.Queue[A]()
+      helper += x
+//       println(s"Pushed $x onto helper")
+      while(! elements.isEmpty){
+        val ele = this.top()
+        helper += ele
+//         println(s"Pushed $ele onto helper")
+        this.pop
+        // println(s"Popped $ele from elements, current elements length: ${elements.length}")
+      }
+      this.elements = helper
+      // println(s"Assign elements to the value of helper")
+    }
+
+    def pop(): A = {
+      elements.dequeue
+    }
+
+    def top(): A = {
+      elements.front
+    }
+
+    def empty(): Boolean = {
+      elements.isEmpty
+    }
+
+  }
 
 }

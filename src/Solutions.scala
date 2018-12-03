@@ -10,8 +10,8 @@ import DataBaseAlgorithm._
 object Solutions {
   def main(args: Array[String]) {
 
-    val input1 = Array("900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org")
-//    val input2 = Array(50, 12, 32, 12, 28)
+//    val input1 = Array[Int]()
+//    val input2 = Array(1,3,4,2)
 //
 //    val inputMat = Array(
 //      Array(0, 1, 0, 0),
@@ -20,7 +20,7 @@ object Solutions {
 //      Array(1, 1, 0, 0)
 //    )
 
-    val res = subdomainVisits(input1)
+//    val res = findShortestSubArray(input1)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
@@ -35,17 +35,20 @@ object Solutions {
 //    println(res.x)
 
     // ----- print for res as collection
-    res.foreach(println)
+//    res.foreach(println)
 
     // ----- print for more than one layer collection
 //    res.foreach(x => {println("solution:"); x.foreach(println)})
 
     // ----- Reserve for testing new data structure
-//    val testData = new MovingAverage(3)
-//    println(testData.next(1))
-//    println(testData.next(3))
-//    println(testData.next(3))
-//    println(testData.next(5))
-
+//    val testData = new StackByQueue[Int]()
+//    val testCommonLib =  scala.collection.mutable.Queue[Int]()
+//    println(testData.top)
+//    testData.push(1)
+//    println(testData.top)
+//    testData.push(2)
+//    println(testData.top)
+//    testData.pop()
+//    println(testData.top)
     }
 }

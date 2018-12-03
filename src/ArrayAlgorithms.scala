@@ -683,9 +683,118 @@ object ArrayAlgorithms {
       hashed += ( A(i) -> hashed(A(i)).dropRight(1) )
       i += 1
     }
+    res
+  }
+
+  // -------------------------- *** Problem: Next Greater Element I *** ---------------------
+  def nextGreaterElement(toFind: Array[Int], base: Array[Int]): Array[Int] = {
+
+    val mapped = scala.collection.mutable.HashMap[Int, Int]()
+    val stacked = new Stack[Int]()
+    var i = 0
+    val res = Array.fill(toFind.length)(-1)
+
+    while (i < base.length){
+      while(!stacked.isEmpty && stacked.peek < base(i)){
+        mapped += (stacked.pop -> base(i))
+      }
+      stacked.push(base(i))
+      i += 1
+    }
+
+    i = 0
+
+    while(i < toFind.length){
+      if (mapped.contains(toFind(i))) res(i) = mapped(toFind(i))
+      i += 1
+    }
 
     res
   }
 
+  // -------------------------- *** Problem: Degree of an Array *** ---------------------
+  def findShortestSubArray(nums: Array[Int]): Int = {
+
+    val countMap = scala.collection.mutable.HashMap[Int, Int]()
+    val startMap = scala.collection.mutable.HashMap[Int, Int]()
+    val endMap = scala.collection.mutable.HashMap[Int, Int]()
+    var i = 0
+    var maxCnt = 0
+    var shtst = 0
+
+    while(i < nums.length){
+      if ( ! countMap.contains(nums(i)) ){
+        startMap += (nums(i) -> i)
+        countMap += (nums(i) -> 1)
+        endMap += (nums(i) -> i)
+        if (maxCnt < 1){
+          maxCnt = 1
+          shtst = 1
+        }
+      }
+      else{
+        val thisCnt = countMap(nums(i)) + 1
+        countMap += ( nums(i) -> thisCnt)
+        endMap += (nums(i) -> i)
+        val thisLen = endMap(nums(i)) - startMap(nums(i)) + 1
+        if (maxCnt < thisCnt){
+          maxCnt = thisCnt
+          shtst = thisLen
+        }
+        else {
+          if (maxCnt == thisCnt && shtst > thisLen){
+            shtst = thisLen
+          }
+        }
+      }
+      i += 1
+    }
+    shtst
+  }
+
+  // -------------------------- *** Problem: Top K Frequent Elements *** ---------------------
+  def topKFrequent(nums: Array[Int], k: Int): List[Int] = {
+
+    var mapped = scala.collection.mutable.HashMap[Int, Int]()
+    var i = 0
+
+    while (i < nums.length){
+      if (mapped.contains(nums(i))){
+        mapped += ( nums(i) -> (mapped(nums(i)) + 1) )
+      }
+      else{
+        mapped += ( nums(i) -> 1 )
+      }
+      i += 1
+    }
+
+    mapped.toList.sortBy(_._2).map(t => t._1).takeRight(k)
+  }
+
+  // -------------------------- *** Problem: Can Place Flowers *** ---------------------
+  def canPlaceFlowers(flowerbed: Array[Int], n: Int): Boolean = {
+
+    var i = 0
+    var free = 0
+
+    while (i < flowerbed.length){
+
+      if (flowerbed(i) == 1){
+        i += 2
+      }
+      else{
+        if (i - 1 >= 0 && i + 1 < flowerbed.length){
+          if(flowerbed( i + 1 ) == 0 && flowerbed( i - 1 ) == 0 ) {free += 1;  i += 2}
+          else {i += 1}
+        }
+        else if (i + 1 == flowerbed.length && i - 1 >= 0 && flowerbed( i - 1 ) == 0 ) {free += 1;  i += 2}
+        else if (i - 1 < 0 && i + 1 < flowerbed.length && flowerbed( i + 1 ) == 0 ) {free += 1;  i += 2}
+        else if (i - 1 < 0 && i + 1 == flowerbed.length) {free += 1;  i += 2}
+        else {i += 1}
+      }
+    }
+
+    free >= n
+  }
 
 }
