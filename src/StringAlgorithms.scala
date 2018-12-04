@@ -1395,4 +1395,45 @@ object StringAlgorithms {
     }
     res
   }
+
+  // -------------------------- *** Problem: String Compression *** ---------------------
+  def compress(chars: Array[Char]): Int = {
+
+    var i = 0
+    var count = 0
+    var lstRecord = ' '
+    var lastLoc = 0
+
+    while(i < chars.length){
+      if (chars(i) != lstRecord){
+        if (count > 1) {
+          val valueStr = count.toString.toCharArray
+          var j = 0
+          while(j < valueStr.length){
+            chars(lastLoc) = valueStr(j)
+            lastLoc += 1
+            j += 1
+          }
+        }
+        lstRecord = chars(i)
+        count = 1
+        chars(lastLoc) = chars(i)
+        lastLoc += 1
+      }
+      else {
+        count += 1
+        if (i == chars.length - 1) {
+          val valueStr = count.toString.toCharArray
+          var j = 0
+          while(j < valueStr.length){
+            chars(lastLoc) = valueStr(j)
+            lastLoc += 1
+            j += 1
+          }
+        }
+      }
+      i += 1
+    }
+    chars.dropRight(chars.length - lastLoc).length
+  }
 }

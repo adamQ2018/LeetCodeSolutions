@@ -793,8 +793,31 @@ object ArrayAlgorithms {
         else {i += 1}
       }
     }
-
     free >= n
+  }
+
+  // -------------------------- *** Problem: Array Permutation *** ---------------------
+  def permute(nums: Array[Int]): List[List[Int]] = {
+    var k = nums.length
+    var res = List[List[Int]]()
+    if (k > 2){
+      var i = 0
+      while(i < nums.length){
+        val tempRes = permute(nums.drop(i + 1) ++ nums.dropRight(nums.length - i))
+        var j = 0
+        while (j < tempRes.length){
+          res = res :+ ( nums(i) +: tempRes(j) )
+          j += 1
+        }
+        i += 1
+      }
+    }
+    else{
+      if (k == 2) res = List(List(nums(0), nums(1)), List(nums(1), nums(0)))
+      else if (k == 1) res = List(List(nums(0)))
+      else res = List(List())
+    }
+    res
   }
 
 }
