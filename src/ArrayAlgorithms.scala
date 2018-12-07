@@ -882,17 +882,17 @@ object ArrayAlgorithms {
     var i = 0
 
     while (i < m){
-      println(s"current row: $i")
+//      println(s"current row: $i")
       var j = 0
       var leftEnd = 0
       var rightEnd = n
 
       while (j < n){
         if (matrix(i)(j) == 1){
-          println(s"detected entry 1 at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
+//          println(s"detected entry 1 at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
           dpLeft(j) = math.max(dpLeft(j), leftEnd)
           dpHeight(j) = dpHeight(j) + 1
-          println(s"updated record at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
+//          println(s"updated record at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
         }
         else{
           dpLeft(j) = 0; leftEnd = j + 1
@@ -905,9 +905,9 @@ object ArrayAlgorithms {
 
       while(j >= 0){
         if (matrix(i)(j) == 1){
-          println(s"detected entry 1 at $i, $j -> last right: ${dpRight(j)}")
+//          println(s"detected entry 1 at $i, $j -> last right: ${dpRight(j)}")
           dpRight(j) = math.min(dpRight(j), rightEnd)
-          println(s"updated record at $i, $j -> last right end: ${dpRight(j)}")
+//          println(s"updated record at $i, $j -> last right end: ${dpRight(j)}")
         }
         else{
           dpRight(j) = n; rightEnd = j //no need to minus one because based on index, it's right - left + 1 (e.g. 0, 1, 2 has length 3)
@@ -918,7 +918,7 @@ object ArrayAlgorithms {
       j += 1
 
       while(j < n){
-        println(s"Current largest area $maxArea, candidate area: ${(dpRight(j) - dpLeft(j))*dpHeight(j)}")
+//        println(s"Current largest area $maxArea, candidate area: ${(dpRight(j) - dpLeft(j))*dpHeight(j)}")
         maxArea = math.max(maxArea, (dpRight(j) - dpLeft(j))*dpHeight(j))
         j += 1
       }
