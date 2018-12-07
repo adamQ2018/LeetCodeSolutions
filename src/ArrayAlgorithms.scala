@@ -1,6 +1,9 @@
 import DataStructures._
 import DataStructures.Node._
 import MathAlgorithm._
+import StringAlgorithms._
+import LinkedListAlgorithms._
+import DataBaseAlgorithm._
 
 object ArrayAlgorithms {
 
@@ -925,5 +928,65 @@ object ArrayAlgorithms {
       i += 1
     }
     maxArea
+  }
+
+  // -------------------------- *** Problem: Maximal Rectangle *** ---------------------
+
+  def coinChange(coins: Array[Int], amount: Int): Int = {
+
+    val maxLen = coins.length
+    val input = coins.sorted
+    var minCount = amount/input(0)
+//    println(s"min Face Value: $minFaceValue")
+
+    def coinChangeHelper(amt: Int, i: Int, nCoin: Int): Unit = {
+//      println(s"Current remaining amount: $amt")
+      if (amt == 0){
+        minCount = math.min(minCount, nCoin)
+      }
+
+      var j = i
+//      println(s"Current Start: $j")
+      while (j >= 0) {
+        if (amt >= input(j) && amt < (minCount - nCoin) * input(j)) {
+          coinChangeHelper(amt - input(j), j, nCoin + 1)
+        }
+        j -= 1
+      }
+    }
+
+    coinChangeHelper(amount, maxLen - 1, 0)
+    if (minCount < Int.MaxValue) minCount else -1
+  }
+
+  // -------------------------- *** Problem: Group Anagrams *** ---------------------
+  def groupAnagrams(strs: Array[String]): List[List[String]] = {
+
+    var i = 0
+    val mapped = scala.collection.mutable.HashMap[String, Int]()
+    var res = Array[Array[String]]()
+    var cate = Array[String]()
+
+    while (i < strs.length){
+
+      var j = 0
+      var met = false
+
+      while (j < cate.length && !met){
+        met = isAnagram(strs(i), cate(j))
+        j += 1
+      }
+
+      if (met == false){
+        mapped += ( strs(i) -> (cate.length + 1) )
+        cate = cate :+ strs(i)
+        res = res :+ Array(strs(i))
+      }
+      else{
+        res(j - 1) = res(j-1) :+ strs(i)
+      }
+      i += 1
+    }
+    res.map(arr => arr.toList).toList
   }
 }

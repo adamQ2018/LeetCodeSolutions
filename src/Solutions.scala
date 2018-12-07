@@ -11,16 +11,16 @@ object Solutions {
   def main(args: Array[String]) {
 
 //    val input1 = Array[Int]()
-//    val input2 = Array(1,3,4,2)
+    val input2 = Array(2)
 
-    val inputMat = Array(
-      Array(1, 0, 1, 0, 0),
-      Array(1, 0, 1, 1, 1),
-      Array(1, 1, 1, 1, 1),
-      Array(1, 0, 0, 1, 0)
-    )
+//    val inputMat = Array(
+//      Array(1, 0, 1, 0, 0),
+//      Array(1, 0, 1, 1, 1),
+//      Array(1, 1, 1, 1, 1),
+//      Array(1, 0, 0, 1, 0)
+//    )
 
-    val res = maximalRectangle(inputMat)
+    val res = coinChange(input2, 4)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
