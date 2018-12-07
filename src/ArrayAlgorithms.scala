@@ -820,4 +820,110 @@ object ArrayAlgorithms {
     res
   }
 
+  // -------------------------- *** Problem: Array Permutation *** ---------------------
+
+  def maxAreaOfIsland(grid: Array[Array[Int]]): Int = {
+
+    var area = 0
+    val maxI = grid.length - 1
+    val maxJ = grid.last.length - 1
+    var maxArea = 0
+
+    def addAreaAndRemove(grid: Array[Array[Int]], i: Int, j: Int): Unit = {
+      if (i + 1 <= maxI && j <= maxJ && grid(i + 1)(j) == 1){
+        area += 1
+        grid(i + 1)(j) = 0
+        addAreaAndRemove(grid, i + 1, j)
+      }
+      if (i - 1 >= 0 && j <= maxJ && grid(i - 1)(j) == 1){
+        area += 1
+        grid(i - 1)(j) = 0
+        addAreaAndRemove(grid, i - 1, j)
+      }
+      if (j + 1 <= maxJ && i <= maxI && grid(i)(j + 1) == 1){
+        area += 1
+        grid(i)(j + 1) = 0
+        addAreaAndRemove(grid, i, j + 1)
+      }
+      if (j - 1 >= 0 && i <= maxI && grid(i)(j - 1) == 1){
+        area += 1
+        grid(i)(j - 1) = 0
+        addAreaAndRemove(grid, i, j - 1)
+      }
+    }
+
+    var i = 0
+
+    while (i <= maxI){
+      var j = 0
+      while (j <= maxJ){
+        if (grid(i)(j) == 1){
+          grid(i)(j) = 0
+          area = 1
+          addAreaAndRemove(grid, i, j)
+        }
+        maxArea = math.max(area, maxArea)
+        j += 1
+      }
+      i += 1
+    }
+    maxArea
+  }
+
+  // -------------------------- *** Problem: Maximal Rectangle *** ---------------------
+  def maximalRectangle(matrix: Array[Array[Int]]): Int = {
+    //set up
+    val m = matrix.length
+    val n = matrix.last.length
+    val dpLeft = Array.fill(n)(0)
+    val dpRight = Array.fill(n)(n)
+    val dpHeight = Array.fill(n)(0)
+    var maxArea = 0
+    var i = 0
+
+    while (i < m){
+      println(s"current row: $i")
+      var j = 0
+      var leftEnd = 0
+      var rightEnd = n
+
+      while (j < n){
+        if (matrix(i)(j) == 1){
+          println(s"detected entry 1 at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
+          dpLeft(j) = math.max(dpLeft(j), leftEnd)
+          dpHeight(j) = dpHeight(j) + 1
+          println(s"updated record at $i, $j -> last height: ${dpHeight(j)}, last left end: ${dpLeft(j)}")
+        }
+        else{
+          dpLeft(j) = 0; leftEnd = j + 1
+          dpHeight(j) = 0
+        }
+        j += 1
+      }
+
+      j -= 1
+
+      while(j >= 0){
+        if (matrix(i)(j) == 1){
+          println(s"detected entry 1 at $i, $j -> last right: ${dpRight(j)}")
+          dpRight(j) = math.min(dpRight(j), rightEnd)
+          println(s"updated record at $i, $j -> last right end: ${dpRight(j)}")
+        }
+        else{
+          dpRight(j) = n; rightEnd = j //no need to minus one because based on index, it's right - left + 1 (e.g. 0, 1, 2 has length 3)
+        }
+        j -= 1
+      }
+
+      j += 1
+
+      while(j < n){
+        println(s"Current largest area $maxArea, candidate area: ${(dpRight(j) - dpLeft(j))*dpHeight(j)}")
+        maxArea = math.max(maxArea, (dpRight(j) - dpLeft(j))*dpHeight(j))
+        j += 1
+      }
+      i += 1
+    }
+    maxArea
+  }
 }

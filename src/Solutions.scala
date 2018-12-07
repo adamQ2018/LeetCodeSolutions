@@ -12,15 +12,15 @@ object Solutions {
 
 //    val input1 = Array[Int]()
 //    val input2 = Array(1,3,4,2)
-//
-//    val inputMat = Array(
-//      Array(0, 1, 0, 0),
-//      Array(1, 1, 1, 0),
-//      Array(0, 1, 0, 0),
-//      Array(1, 1, 0, 0)
-//    )
 
-//    val res = findShortestSubArray(input1)
+    val inputMat = Array(
+      Array(1, 0, 1, 0, 0),
+      Array(1, 0, 1, 1, 1),
+      Array(1, 1, 1, 1, 1),
+      Array(1, 0, 0, 1, 0)
+    )
+
+    val res = maximalRectangle(inputMat)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
@@ -29,7 +29,7 @@ object Solutions {
 //    }
 
     // ----- print simple type result
-//    println(res)
+    println(res)
 
     // ----- print if res is an object
 //    println(res.x)
