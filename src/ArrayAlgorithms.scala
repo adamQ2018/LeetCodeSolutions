@@ -989,4 +989,25 @@ object ArrayAlgorithms {
     }
     res.map(arr => arr.toList).toList
   }
+
+  // -------------------------- *** Problem: Word Break *** ---------------------
+  def wordBreak (s: String, wordDict: List[String]): Boolean = {
+    val f = new Array[Boolean](s.length + 1)
+
+    f(0) = true
+
+    var i = 1
+    while (i <= s.length){
+      var j = 0
+      while (j < i && !f(i)){
+        if(f(j) && wordDict.contains(s.substring(j, i))){
+          f(i) = true
+        }
+        j += 1
+      }
+      i += 1
+    }
+    f(s.length)
+  }
+
 }

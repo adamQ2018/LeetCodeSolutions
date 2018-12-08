@@ -11,7 +11,7 @@ object Solutions {
   def main(args: Array[String]) {
 
 //    val input1 = Array[Int]()
-    val input2 = Array(2)
+    val input2 = List("go","goal","goals","special")
 
 //    val inputMat = Array(
 //      Array(1, 0, 1, 0, 0),
@@ -20,7 +20,7 @@ object Solutions {
 //      Array(1, 0, 0, 1, 0)
 //    )
 
-    val res = coinChange(input2, 4)
+    val res = wordBreak("goalspecial", input2)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
