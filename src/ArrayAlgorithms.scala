@@ -992,8 +992,8 @@ object ArrayAlgorithms {
 
   // -------------------------- *** Problem: Word Break *** ---------------------
   def wordBreak (s: String, wordDict: List[String]): Boolean = {
-    val f = new Array[Boolean](s.length + 1)
 
+    val f = new Array[Boolean](s.length + 1)
     f(0) = true
 
     var i = 1
