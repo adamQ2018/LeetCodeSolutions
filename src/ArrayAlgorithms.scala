@@ -1010,4 +1010,181 @@ object ArrayAlgorithms {
     f(s.length)
   }
 
-}
+  // -------------------------- *** Problem: Spiral Matrix *** ---------------------
+  def spiralOrder(matrix: Array[Array[Int]]): List[Int] = {
+
+    var res = List[Int]()
+    if (matrix.isEmpty) return res
+
+    var left = 0
+    var right = matrix.last.length - 1
+    var top = 0
+    var bottom =  matrix.length - 1
+
+    while (left <= right && top <= bottom){
+
+      var j = left
+      while (j <= right){
+        res = res :+ matrix(top)(j)
+        j += 1
+      }
+      top += 1
+
+      var i = top
+      while (i <= bottom){
+        res = res :+ matrix(i)(right)
+        i += 1
+      }
+      right -= 1
+
+      if (top <= bottom){
+        j = right
+        while (j >= left){
+          res = res :+ matrix(bottom)(j)
+          j -= 1
+        }
+      }
+      bottom -= 1
+
+      if (left <= right){
+        i = bottom
+        while (i >= top){
+          res = res :+ matrix(i)(left)
+          i -= 1
+        }
+      }
+      left += 1
+    }
+    res
+  }
+
+  // -------------------------- *** Problem: Game of Life *** ---------------------
+  def countNeibors(board: Array[Array[Int]], i: Int, j: Int) = {
+    var res = 0
+    res += (if (i - 1 >= 0 && j - 1 >= 0) board(i - 1)(j - 1) else 0)
+    res += (if (i - 1 >= 0) board(i - 1)(j) else 0)
+    res += (if (i - 1 >= 0 && j + 1 < board.last.length) board(i - 1)(j + 1) else 0)
+    res += (if (j - 1 >= 0) board(i)(j - 1) else 0)
+    res += (if (j + 1 < board.last.length) board(i)(j + 1) else 0)
+    res += (if (i + 1 < board.length && j - 1 >= 0) board(i + 1)(j - 1) else 0)
+    res += (if (i + 1 < board.length) board(i + 1)(j) else 0)
+    res += (if (i + 1 < board.length && j + 1 < board.last.length) board(i + 1)(j + 1) else 0)
+    res
+  }
+
+  def updateNextGen(board: Array[Array[Int]], i: Int, j: Int) = {
+    val cnt = countNeibors(board, i, j)
+    cnt match {
+      case x if x < 2 => 0
+      case x if x == 2 => board(i)(j)
+      case x if x > 3 => 0
+      case x if x == 3 => 1
+    }
+  }
+
+  def gameOfLife(board: Array[Array[Int]]): Unit = {
+
+    val res = Array.ofDim[Int](board.length, board.last.length)
+    var i = 0
+
+    while (i < board.length){
+      var j = 0
+      while (j < board.last.length){
+        res(i)(j) = updateNextGen(board, i ,j)
+        j += 1
+      }
+      i += 1
+    }
+
+    i = 0
+    while (i < board.length){
+      var j = 0
+      while (j < board.last.length){
+        board(i)(j) = res(i)(j)
+        j += 1
+      }
+      i += 1
+    }
+  }
+
+  // -------------------------- *** Problem: Merge Intervals *** ---------------------
+  case class Interval (var start: Int = 0, var end: Int = 0)
+
+  def merge(intervals: List[Interval]): List[Interval] = {
+    if (intervals.isEmpty) return List()
+    val input = intervals.sortBy(_.start)
+    var i = 1
+    var res = List(input.head)
+    while(i < input.length){
+      val thisInterval = input(i)
+      val lastRes = res.last
+      if (thisInterval.start <= lastRes.end){
+        res = res.dropRight(1)
+        res = res :+ Interval(lastRes.start, math.max(thisInterval.end, lastRes.end))
+      }
+      else{
+        res = res :+ thisInterval
+      }
+      i += 1
+    }
+    res
+  }
+
+  // -------------------------- *** Problem: Generate Parentheses *** ---------------------
+  def swapChar(arr: Array[Char], i: Int, j: Int) = {
+    val res = arr.clone
+    val temp = res(i)
+    res(i) = res(j)
+    res(j) = temp
+    res
+  }
+
+  def generateParenthesis(n: Int): List[String] = {
+
+    val base = "()"*n
+    val baseArr = base.toCharArray
+    var res = List(baseArr)
+
+    def generateParenthesisHelper(base: Array[Char], i: Int): Unit = {
+
+      var farSwap = base.length - 2
+
+      while (farSwap >= i + 1){
+        var tempRes = swapChar(base, i, farSwap)
+        res = res :+ tempRes
+        if (i + 2 <= base.length - 1){
+          generateParenthesisHelper(tempRes, i + 2)
+          generateParenthesisHelper(base, i + 2)
+        }
+        farSwap -= 2
+      }
+    }
+
+    generateParenthesisHelper(baseArr, 1)
+
+    res.map(x => x.mkString).distinct
+  }
+
+  def generateParenthesisByGrowth(n: Int): List[String] = {
+
+    if (n == 0) return List[String]()
+    var res =  List[String]()
+
+
+    def growParenthesis(left: Int, right: Int, str: String): Unit ={
+
+      if (right < left) return
+      if (left == 0 && right == 0){
+        res = res :+ str
+        return
+      }
+      if (left > 0) growParenthesis(left - 1, right, str + "(")
+      if (right > 0) growParenthesis(left, right - 1, str + ")")
+    }
+
+    growParenthesis(n, n, "")
+    res
+  }
+
+
+  }

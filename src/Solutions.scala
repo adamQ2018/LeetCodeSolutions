@@ -11,16 +11,23 @@ object Solutions {
   def main(args: Array[String]) {
 
 //    val input1 = Array[Int]()
-    val input2 = List("go","goal","goals","special")
+//    val input2 = List("go","goal","goals","special")
 
 //    val inputMat = Array(
-//      Array(1, 0, 1, 0, 0),
-//      Array(1, 0, 1, 1, 1),
-//      Array(1, 1, 1, 1, 1),
-//      Array(1, 0, 0, 1, 0)
+//      Array(0, 1, 0),
+//      Array(0, 0, 1),
+//      Array(1, 1, 1),
+//      Array(0, 0, 0)
 //    )
 
-    val res = wordBreak("goalspecial", input2)
+//    val inputList = List(
+//      Interval(1, 3),
+//      Interval(4, 5),
+//      Interval(2, 9),
+//      Interval(15, 18)
+//    )
+
+    val res = minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd")
 
     // ----- print if res is a linked data structure
 //    while (res != null){
@@ -36,6 +43,7 @@ object Solutions {
 
     // ----- print for res as collection
 //    res.foreach(println)
+//    println(res.length)
 
     // ----- print for more than one layer collection
 //    res.foreach(x => {println("solution:"); x.foreach(println)})

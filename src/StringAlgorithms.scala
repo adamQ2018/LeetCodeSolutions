@@ -858,7 +858,7 @@ object StringAlgorithms {
     res
   }
 
-  def strToPrimeProd (s: String): Long = {
+  def strToPrimeProduct (s: String): Long = {
 
     val primes = charToPrime(s.toLowerCase.toCharArray)
     var ind = 0
@@ -874,14 +874,14 @@ object StringAlgorithms {
 
   def shortestCompletingWord(licensePlate: String, words: Array[String]): String = {
 
-    val ref = strToPrimeProd(licensePlate)
+    val ref = strToPrimeProduct(licensePlate)
     var bestWord = " "
     var bestLen = Int.MaxValue
     var ind = 0
 
     while (ind < words.length){
       val thisWord = words(ind)
-      val thisCharProd = strToPrimeProd(thisWord)
+      val thisCharProd = strToPrimeProduct(thisWord)
       if (thisCharProd % ref == 0 && thisWord.length < bestLen){
         bestWord = thisWord
         bestLen = thisWord.length
@@ -1435,5 +1435,75 @@ object StringAlgorithms {
       i += 1
     }
     chars.dropRight(chars.length - lastLoc).length
+  }
+
+  // -------------------------- *** Problem: Minimum Window Substring *** ---------------------
+  def strToPrimeProd (s: String) = {
+
+    var i = 0
+    var res = 1
+
+    while (i < s.length){
+      res *= charToPrime(s(i))
+      i += 1
+    }
+    res
+  }
+
+  def charToPrime (char: Char) = {
+    val primes = Array(2,3,5,7,11,13,17,19,23,29, 31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113)
+    if (char >= 65 && char <= 90) primes(char - 'A')
+    else if (char >= 'a' && char <= 'z') primes(char - 'a')
+    else -1
+  }
+
+  def minWindow(s: String, t: String): String = {
+
+    var i = 0
+    val record = new Array[Int](127)
+    var appear = scala.collection.mutable.HashMap[Char, Boolean]()
+
+    while (i < t.length){
+      record(t(i)) = record(t(i)) + 1
+      appear += (t(i) -> true)
+      i += 1
+    }
+//    record.foreach(println)
+    var bestLen = Int.MaxValue
+    var bestStart = 0
+    var bestEnd = s.length
+    var missing = t.length
+    i = 0
+    var end = 0
+
+    while (i < s.length){
+//      println(s"Current Input Char: ${s(i)}")
+      if (appear.contains(s(i))){
+//        println(s"Find Potential Start: $i")
+        while (missing != 0 && end < s.length){
+          println(s"Current Index: $end")
+          println(s"Current Char: ${s(end)}")
+          if (appear.contains(s(end))) {
+            if (record(s(end)) > 0) missing -= 1
+            record(s(end)) = record(s(end)) - 1
+          }
+          end += 1
+        }
+//        println(s"Find Potential End, sum is ${record.sum}")
+        if (bestLen > (end - i) && missing == 0) {
+          bestLen = end - i
+          bestEnd = end
+          bestStart = i
+        }
+        if (record(s(i)) >= 0) missing += 1
+        record(s(i)) = record(s(i)) + 1
+        i += 1
+      }
+      else{
+        i += 1
+      }
+    }
+
+    if (bestLen > s.length) "" else s.substring(bestStart, bestEnd)
   }
 }
