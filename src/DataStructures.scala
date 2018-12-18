@@ -1,6 +1,7 @@
 import DataStructures.LinkedList
 
 import scala.reflect.ClassTag
+import scala.util.Random
 
 object DataStructures {
 
@@ -440,7 +441,52 @@ object DataStructures {
     def empty(): Boolean = {
       elements.isEmpty
     }
+  }
 
+  // Random Set
+  class RandomizedSet {
+
+    /** Initialize your data structure here. */
+    var record = Array[Int]()
+    var locs = scala.collection.mutable.HashMap[Int, Int]()
+    var size: Int = 0
+
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    def insert(x: Int): Boolean = {
+      if (!locs.contains(x)){
+        locs += (x -> size)
+        record = record :+ x
+        size += 1
+        true
+      }
+      else{
+        false
+      }
+    }
+
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    def remove(x: Int): Boolean = {
+      if (locs.contains(x)){
+        val loc = locs(x) //get the location of this one
+        val lastValue = record.last
+        locs += (lastValue -> loc) // assign the last value to the empty location
+        locs -= x //remove the value key
+        record(loc) = lastValue //reassign last value to the current location
+        record = record.dropRight(1)
+        size -= 1
+        true
+      }
+      else {
+        false
+      }
+    }
+
+    /** Get a random element from the set. */
+    def getRandom(): Int = {
+      val rand = new Random()
+      val value = rand.nextInt(size)
+      record(value)
+    }
   }
 
 }

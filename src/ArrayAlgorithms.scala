@@ -1186,5 +1186,55 @@ object ArrayAlgorithms {
     res
   }
 
-
+  // -------------------------- *** Problem: Missing Ranges *** ---------------------
+  def getStringRange(low: Int, high: Int): String ={
+    if (low == high) s"$low" else s"$low->$high"
   }
+
+  def findMissingRanges(nums: Array[Int], lower: Int, upper: Int): List[String] = {
+
+    var res = List[String]()
+    var low = lower
+    var i = 0
+
+    while (i < nums.length){
+
+      val thisValue = nums(i)
+
+      if (thisValue == low){
+        low += 1
+      }
+      else if (thisValue > low){
+        res = res :+ getStringRange(low, thisValue - 1)
+        low = thisValue + 1
+      }
+      i += 1
+    }
+
+    if (low <= upper){
+      res = res :+ getStringRange(low, upper)
+    }
+    res
+  }
+
+  // -------------------------- *** Problem: Max Circular Subarray *** ---------------------
+  def maxSubarraySumCircular(A: Array[Int]): Int = {
+    var min = Int.MaxValue
+    var max = Int.MinValue
+    var curMin = 0
+    var curMax = 0
+    var ttl = 0
+    var i = 0
+
+    while (i < A.length){
+      ttl += A(i)
+      min = math.min(curMin + A(i), min)
+      max = math.max(curMax + A(i), max)
+      curMax = math.max(curMax + A(i), 0)
+      curMin = math.min(curMin + A(i), 0)
+      i += 1
+    }
+    if (max < 0) max else math.max(ttl - min, max)
+  }
+
+}

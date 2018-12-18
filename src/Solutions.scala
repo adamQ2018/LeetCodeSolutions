@@ -27,7 +27,7 @@ object Solutions {
 //      Interval(15, 18)
 //    )
 
-    val res = minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd")
+    val res = findMissingRanges(Array(-1), -1, 0)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
@@ -36,13 +36,13 @@ object Solutions {
 //    }
 
     // ----- print simple type result
-    println(res)
+//    println(res)
 
     // ----- print if res is an object
 //    println(res.x)
 
     // ----- print for res as collection
-//    res.foreach(println)
+    res.foreach(println)
 //    println(res.length)
 
     // ----- print for more than one layer collection
