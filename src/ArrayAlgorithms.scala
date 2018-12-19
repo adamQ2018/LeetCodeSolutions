@@ -1237,4 +1237,22 @@ object ArrayAlgorithms {
     if (max < 0) max else math.max(ttl - min, max)
   }
 
+  // -------------------------- *** Problem: Best Time to Buy and Sell Stock III *** ---------------------
+  def maxProfit(prices: Array[Int], transcations: Int): Int = {
+
+    val minCost = Array.fill(transcations + 1)(Int.MaxValue)
+    val profit = Array.fill(transcations + 1)(0)
+    var i = 0
+
+    while (i < prices.length){
+      var k = 1
+      while(k < transcations + 1){
+        minCost(k) = math.min(minCost(k), prices(i) - profit(k - 1))
+        profit(k) = math.max(profit(k), prices(i) - minCost(k))
+        k += 1
+      }
+      i += 1
+    }
+    profit(transcations)
+  }
 }

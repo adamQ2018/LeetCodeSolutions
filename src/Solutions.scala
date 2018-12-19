@@ -27,7 +27,14 @@ object Solutions {
 //      Interval(15, 18)
 //    )
 
-    val res = findMissingRanges(Array(-1), -1, 0)
+    val testLRUCache = new LRUCache(1)
+    testLRUCache.put(2, 1)
+    testLRUCache.get(2)
+    testLRUCache.put(3, 2)
+//    println(testLRUCache.head.key)
+//    testLRUCache.put(4, 1)
+//    testLRUCache.get(2)
+//    val res = findMissingRanges(Array(-1), -1, 0)
 
     // ----- print if res is a linked data structure
 //    while (res != null){
@@ -42,7 +49,7 @@ object Solutions {
 //    println(res.x)
 
     // ----- print for res as collection
-    res.foreach(println)
+//    res.foreach(println)
 //    println(res.length)
 
     // ----- print for more than one layer collection

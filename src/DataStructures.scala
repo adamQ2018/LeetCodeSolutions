@@ -489,4 +489,94 @@ object DataStructures {
     }
   }
 
+  // Double Linked List
+  class DoubleLinkedList[A] (var data: A, var prev: DoubleLinkedList[A], var next: DoubleLinkedList[A]) {
+
+    def appendLeft (x: A) = {
+      this.prev = new DoubleLinkedList(x, null, this)
+    }
+
+    def appendRight (x: A) = {
+      this.next = new DoubleLinkedList(x, this, null)
+    }
+
+    def changeValue (x: A) = {
+      this.data = x
+    }
+  }
+
+  // LRU Cache
+  class LRUCache(capacity: Int) {
+
+    case class Node (var key: Int, var value: Int){
+      var prev: Node = null
+      var next: Node = null
+    }
+
+    var head: Node = null
+    var tail: Node = null
+    var map = scala.collection.mutable.HashMap[Int, Node]() //this is to store value
+    var size = 0
+
+    def get(key: Int): Int = {
+      if (map.contains(key)){
+        println(s"Find node, bring it to front")
+        val thisNode = map(key) //find the node
+        if (thisNode.key != head.key){//this node is not head
+          val orgnlNext = thisNode.next //orignal node location's next
+          val orgnlPrev = thisNode.prev //orignal node location's prev
+          orgnlPrev.next = orgnlNext //orignal node prev concat next, eliminating original node
+          if (thisNode.key == tail.key) tail = orgnlPrev // no orgnlNext, it's null
+          else orgnlNext.prev = orgnlPrev // else update the orgnl next
+          thisNode.prev = null
+          thisNode.next = head //bring this node to the front
+          head.prev = thisNode
+          head = thisNode
+        }
+        println(s"Get value: ${head.value}")
+        head.value
+      }
+      else{
+        -1
+      }
+    }
+
+    def put(key: Int, value: Int) {
+
+      if (map.contains(key)){ // the key already present, should bring key to the front
+        get(key)
+        head.value = value
+      }
+      else{ // the key does not exist
+        val thisNode = Node(key, value) //construct node
+        map += key -> thisNode // add pair to map
+        if (size == 0){
+          println(s"Initiate first node")
+          head = thisNode //initiate head and tail
+          tail = thisNode
+          size += 1 //increase size
+        }
+        else if (size == capacity){ // if size is full
+          println(s"Cache is full, remove tail ${tail.key}")
+          map -= tail.key // remove last node from the map
+          thisNode.next = head // make this node at the front
+          head.prev = thisNode //update head to make this node in front of it
+          head = thisNode // update head
+          tail = tail.prev //tail should be updated later, otherwise head may become null
+          tail.next = null //update tail
+          //the size should not change
+        }
+        else{ //size is not full and map is not empty
+          println(s"Cache is not full, add node $key, $value")
+          thisNode.next = head //set its next equals head
+          head.prev = thisNode
+          head = thisNode  // bring this to be head
+          size += 1 // size should increase by 1
+        }
+      }
+    }
+  }
+
+
+
 }
