@@ -1506,4 +1506,65 @@ object StringAlgorithms {
 
     if (bestLen > s.length) "" else s.substring(bestStart, bestEnd)
   }
+  
+  // -------------------------- *** Problem: Wildcard Matching *** ---------------------
+  def isMatch(s: String, p: String): Boolean = {
+    var patternIdx = 0; var stringIdx = 0; var starIdx = -1; var matched = 0
+    while (stringIdx < s.length){
+      if (patternIdx < p.length && (p(patternIdx) == '?' || p(patternIdx) == s(stringIdx))){
+        patternIdx += 1
+        stringIdx += 1
+      }
+      else if (patternIdx < p.length && p(patternIdx) == '*'){
+        starIdx = patternIdx
+        patternIdx += 1
+        matched = stringIdx
+      }
+      else if (starIdx != - 1){
+        patternIdx = starIdx + 1
+        matched += 1
+        stringIdx = matched
+      }
+      else return false
+    }
+
+    while (patternIdx < p.length && p(patternIdx) == '*'){
+      patternIdx += 1
+    }
+
+    patternIdx == p.length
+  }
+
+  // -------------------------- *** Problem:  Evaluate Reverse Polish Notation *** ---------------------
+  def evalRPN(tokens: Array[String]): Int = {
+    var stack = scala.collection.mutable.ArrayBuffer[Int]()
+    var i = 0
+    while (i < tokens.length){
+      if (tokens(i) == "+"){
+        val op1 = stack.last; stack = stack.dropRight(1)
+        val op2 = stack.last; stack = stack.dropRight(1)
+        stack += op2 + op1
+      }
+      else if (tokens(i) == "-"){
+        val op1 = stack.last; stack = stack.dropRight(1)
+        val op2 = stack.last; stack = stack.dropRight(1)
+        stack += op2 - op1
+      }
+      else if (tokens(i) == "/"){
+        val op1 = stack.last; stack = stack.dropRight(1)
+        val op2 = stack.last; stack = stack.dropRight(1)
+        stack += op2 / op1
+      }
+      else if (tokens(i) == "*"){
+        val op1 = stack.last; stack = stack.dropRight(1)
+        val op2 = stack.last; stack = stack.dropRight(1)
+        stack += op2 * op1
+      }
+      else{
+        stack += tokens(i).toInt
+      }
+      i += 1
+    }
+    stack.last
+  }
 }

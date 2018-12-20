@@ -1239,7 +1239,6 @@ object ArrayAlgorithms {
 
   // -------------------------- *** Problem: Best Time to Buy and Sell Stock III *** ---------------------
   def maxProfit(prices: Array[Int], transcations: Int): Int = {
-
     val minCost = Array.fill(transcations + 1)(Int.MaxValue)
     val profit = Array.fill(transcations + 1)(0)
     var i = 0
@@ -1254,5 +1253,60 @@ object ArrayAlgorithms {
       i += 1
     }
     profit(transcations)
+  }
+
+
+  // -------------------------- *** Problem: Number of Connected Components in an Undirected Graph *** ---------------------
+  def countComponents(n: Int, edges: Array[Array[Int]]): Int = {
+
+    if (edges.isEmpty) return 0
+
+
+    var i = 0
+    var count = 0
+
+    val input = Array.fill(n)(Array.fill(n)(0))
+
+    while (i < edges.length){
+      val first = edges(i)(0); val second = edges(i)(1)
+//      println(s"First: $first, second: $second")
+      input(first)(second) = 1
+      input(second)(first) = 1
+      i += 1
+    }
+
+    i = 0
+    while (i < n){
+      input(i)(i) = 1
+      i += 1
+    }
+//    input.foreach(arr => arr.foreach(println))
+    def seenAndRemove (i: Int): Unit = {
+      var j = 0
+      input(i)(i) = 0
+      while (j < n){
+        if (input(i)(j) == 1){
+          println(s"Find connection $i -> $j")
+          input(i)(j) = 0
+          input(j)(i) = 0
+          println(s"Jump to $j")
+          seenAndRemove(j)
+        }
+        j += 1
+      }
+    }
+
+    i = 0
+    while (i < n){
+//      println(s"Current row: $i")
+      if (input(i)(i) == 1){
+//        println(s"Find connection")
+        count += 1
+        seenAndRemove(i)
+      }
+      i += 1
+    }
+
+    count
   }
 }
